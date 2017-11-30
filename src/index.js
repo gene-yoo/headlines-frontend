@@ -6,6 +6,10 @@ import registerServiceWorker from "./registerServiceWorker";
 import "semantic-ui-css/semantic.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
 
+// import dotenv from "dotenv";
+// dotenv.config();
+// console.log(dotenv);
+
 ReactDOM.render(
 	<Router>
 		<App />

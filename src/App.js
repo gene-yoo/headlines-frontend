@@ -5,6 +5,7 @@ import DistractifyContainer from "./components/DistractifyContainer";
 
 class App extends Component {
 	render() {
+		console.log(process.env);
 		return <Route path="/" component={DistractifyContainer} />;
 	}
 }

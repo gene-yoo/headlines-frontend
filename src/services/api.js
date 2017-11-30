@@ -1,5 +1,6 @@
+import keys from "./keys.js";
 const baseURL = "https://newsapi.org/v2/";
-const API_KEY = "aaca6fb7398b4c1abc1928803b2f24c0";
+const API_KEY = keys.api;
 const headers = { "X-Api-Key": API_KEY };
 
 const api = {
