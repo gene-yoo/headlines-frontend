@@ -1,21 +1,34 @@
 import React from "react";
+import { Container, Form } from "semantic-ui-react";
 
 const Login = props => {
 	return (
-		<div className="ui center aligned container">
+		<Container align="center">
 			<h1>Login</h1>
-			<form className="ui form">
-				<div className="field">
-					<input type="text" name="username" placeholder="Username" />
-				</div>
-				<div className="field">
-					<input type="text" name="password" placeholder="Password" />
-				</div>
-				<div className="field">
+			<Form onSubmit={props.handleLoginSubmit}>
+				<Form.Field>
+					<input
+						type="text"
+						name="username"
+						placeholder="Username"
+						value={props.loginTerms.username}
+						onChange={props.handleLoginTerms}
+					/>
+				</Form.Field>
+				<Form.Field>
+					<input
+						type="password"
+						name="password"
+						placeholder="Password"
+						value={props.loginTerms.password}
+						onChange={props.handleLoginTerms}
+					/>
+				</Form.Field>
+				<Form.Field>
 					<input type="submit" className="ui button" />
-				</div>
-			</form>
-		</div>
+				</Form.Field>
+			</Form>
+		</Container>
 	);
 };
 

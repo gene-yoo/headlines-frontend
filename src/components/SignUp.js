@@ -1,8 +1,6 @@
 import React from "react";
 
 const SignUp = props => {
-	console.log(props);
-
 	let sourceOptions = props.sources.map(source => (
 		<div>
 			<input

@@ -4,7 +4,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import FeedContainer from "./FeedContainer";
 import ResultsContainer from "./ResultsContainer";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import api from "../services/api";
 import { Segment } from "semantic-ui-react";
 
@@ -23,6 +23,10 @@ class DistractifyContainer extends React.Component {
 				passwordConfirmation: "",
 				preferredSources: [],
 				preferredCategories: []
+			},
+			loginTerms: {
+				username: "",
+				password: ""
 			}
 		};
 	}
@@ -55,16 +59,18 @@ class DistractifyContainer extends React.Component {
 		// this.setState({ searchTerm: "" });
 	}
 
+	setResults(json) {
+		this.props.history.push("/results");
+		this.setState({ results: json.articles });
+	}
+
 	handleSignUpTerms(event) {
-		this.setState(
-			{
-				signUpTerms: {
-					...this.state.signUpTerms,
-					[event.target.name]: event.target.value
-				}
-			},
-			() => console.log(this.state.signUpTerms)
-		);
+		this.setState({
+			signUpTerms: {
+				...this.state.signUpTerms,
+				[event.target.name]: event.target.value
+			}
+		});
 	}
 
 	handleSignUpCheckboxes(event) {
@@ -78,15 +84,12 @@ class DistractifyContainer extends React.Component {
 			);
 		}
 
-		this.setState(
-			{
-				signUpTerms: {
-					...this.state.signUpTerms,
-					[event.target.name]: collection
-				}
-			},
-			() => console.log(this.state.signUpTerms)
-		);
+		this.setState({
+			signUpTerms: {
+				...this.state.signUpTerms,
+				[event.target.name]: collection
+			}
+		});
 	}
 
 	handleSignupSubmit(event) {
@@ -94,10 +97,22 @@ class DistractifyContainer extends React.Component {
 		api.postNewUser(this.state.signUpTerms, this.props.loginMethod);
 	}
 
-	setResults(json) {
-		console.log("setting results!", json);
-		this.props.history.push("/results");
-		this.setState({ results: json.articles });
+	handleLoginTerms(event) {
+		this.setState(
+			{
+				loginTerms: {
+					...this.state.loginTerms,
+					[event.target.name]: event.target.value
+				}
+			},
+			() => console.log(this.state.loginTerms)
+		);
+	}
+
+	handleLoginSubmit(event) {
+		event.preventDefault();
+		console.log("inside submit");
+		api.loginUser(this.state.loginTerms, this.props.loginMethod);
 	}
 
 	render() {
@@ -132,7 +147,16 @@ class DistractifyContainer extends React.Component {
 								);
 							}}
 						/>
-						<Route path="/login" component={Login} />
+						<Route
+							path="/login"
+							render={() => (
+								<Login
+									handleLoginTerms={this.handleLoginTerms.bind(this)}
+									handleLoginSubmit={this.handleLoginSubmit.bind(this)}
+									loginTerms={this.state.loginTerms}
+								/>
+							)}
+						/>
 						<Route
 							path="/signup"
 							render={() => {
@@ -157,4 +181,4 @@ class DistractifyContainer extends React.Component {
 	}
 }
 
-export default DistractifyContainer;
+export default withRouter(DistractifyContainer);

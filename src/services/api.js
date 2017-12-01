@@ -11,13 +11,13 @@ const backendHeaders = {
 const api = {
 	getFeed: () => {
 		return fetch(`${newsURL}/top-headlines?sources=bbc-news,the-verge`, {
-			newsHeaders
+			headers: newsHeaders
 		}).then(res => res.json());
 	},
 
 	search: term => {
 		return fetch(`${newsURL}/everything?q=${term}`, {
-			newsHeaders
+			headers: newsHeaders
 		});
 	},
 
@@ -26,9 +26,18 @@ const api = {
 	},
 
 	postNewUser: (data, login) => {
-		console.log("inside postNewUser", data);
-
 		fetch(`${backendURL}/users`, {
+			method: "POST",
+			body: JSON.stringify({ user: data }),
+			headers: backendHeaders
+		})
+			.then(res => res.json())
+			.then(res => login(res));
+	},
+
+	loginUser: (data, login) => {
+		console.log("inside loginUser");
+		fetch(`${backendURL}/login`, {
 			method: "POST",
 			body: JSON.stringify({ user: data }),
 			headers: backendHeaders

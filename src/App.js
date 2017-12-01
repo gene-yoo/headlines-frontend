@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import DistractifyContainer from "./components/DistractifyContainer";
 
 class App extends Component {
@@ -18,11 +18,14 @@ class App extends Component {
 		console.log("inside login method, res is: ", res);
 		localStorage.setItem("token", res.token);
 
-		this.setState({
-			auth: {
-				user: res
-			}
-		});
+		this.setState(
+			{
+				auth: {
+					user: res
+				}
+			},
+			() => this.props.history.push("/feed")
+		);
 	}
 
 	render() {
@@ -37,4 +40,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default withRouter(App);
