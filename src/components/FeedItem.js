@@ -1,18 +1,23 @@
 import React from "react";
+import { Feed, Image } from "semantic-ui-react";
 
 const FeedItem = props => {
 	return (
-		<div className="event large center aligned">
-			<div className="label">
-				<img className="ui small image" src={props.article.urlToImage} alt="" />
-			</div>
-			<div className="content">
-				<div className="summary">{props.article.title}</div>
-				<div className="extra text">{props.article.description}</div>
-				<br />
-				<div className="date">{props.article.publishedAt}</div>
-			</div>
-		</div>
+		<Feed.Event>
+			<Image
+				src={props.article.urlToImage}
+				size="small"
+				verticalAlign="middle"
+				style={{ height: "100%" }}
+			/>
+			<Feed.Content>
+				<Feed.Summary>
+					{props.article.title}
+					<Feed.Date>{props.article.publishedAt}</Feed.Date>
+				</Feed.Summary>
+				<Feed.Extra text>{props.article.description}</Feed.Extra>
+			</Feed.Content>
+		</Feed.Event>
 	);
 };
 

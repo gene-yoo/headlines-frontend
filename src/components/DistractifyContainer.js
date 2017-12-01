@@ -6,6 +6,7 @@ import FeedContainer from "./FeedContainer";
 import ResultsContainer from "./ResultsContainer";
 import { Route, Switch } from "react-router-dom";
 import api from "../services/api";
+import { Segment } from "semantic-ui-react";
 
 class DistractifyContainer extends React.Component {
 	constructor(props) {
@@ -19,21 +20,21 @@ class DistractifyContainer extends React.Component {
 		};
 	}
 
-	componentDidMount() {
-		fetch("http://localhost:3000/api/v1/signup")
-			.then(res => res.json())
-			.then(json =>
-				this.setState({ sources: json.sources, categories: json.categories })
-			);
-	}
+	// componentDidMount() {
+	// 	fetch("http://localhost:3000/api/v1/signup")
+	// 		.then(res => res.json())
+	// 		.then(json =>
+	// 			this.setState({ sources: json.sources, categories: json.categories })
+	// 		);
+	// }
 
 	getSignup() {
 		let results = api.signupForm();
-		console.log("results from distractify container: ", results);
+		// console.log("results from distractify container: ", results);
 	}
 
 	getFeed() {
-		console.log("getting feed");
+		// console.log("getting feed");
 		api.getFeed().then(json => this.setFeed(json));
 	}
 	setFeed(json) {
@@ -44,22 +45,25 @@ class DistractifyContainer extends React.Component {
 		this.setState({ searchTerm: ev.target.value });
 	}
 	handleSearch() {
-		api.search(this.state.searchTerm).then(json => this.setResults(json));
-		this.setState({ searchTerm: "" });
+		api
+			.search(this.state.searchTerm)
+			.then(res => res.json())
+			.then(json => this.setResults(json));
+		// this.setState({ searchTerm: "" });
 	}
 
 	handleSignupSubmit(event) {
 		event.preventDefault();
-		console.log("handling signup submit");
+		// console.log("handling signup submit");
 	}
 
 	setResults(json) {
+		console.log("setting results!", json);
 		this.props.history.push("/results");
 		this.setState({ results: json.articles });
 	}
 
 	render() {
-		console.log(this.state);
 		return (
 			<div>
 				<NavBar
@@ -67,15 +71,17 @@ class DistractifyContainer extends React.Component {
 					handleSearchTerm={this.handleSearchTerm.bind(this)}
 					handleSearch={this.handleSearch.bind(this)}
 				/>
-				<br />
-				<br />
-				<br />
-				<div className="ui bottom attached segment">
+				<Segment attached="bottom">
 					<Switch>
 						<Route
 							path="/results"
 							render={() => {
-								return <ResultsContainer results={this.state.results} />;
+								return (
+									<FeedContainer
+										feed={this.state.results}
+										searchTerm={this.state.searchTerm}
+									/>
+								);
 							}}
 						/>
 						<Route
@@ -103,7 +109,7 @@ class DistractifyContainer extends React.Component {
 							}}
 						/>
 					</Switch>
-				</div>
+				</Segment>
 			</div>
 		);
 	}

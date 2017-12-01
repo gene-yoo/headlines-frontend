@@ -1,8 +1,17 @@
 import React from "react";
 import FeedItem from "./FeedItem";
 import api from "../services/api";
+import { Feed, Container, Header } from "semantic-ui-react";
 
 class FeedContainer extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isSearchResults: false
+		};
+	}
+
 	componentDidMount() {
 		this.props.getFeed();
 	}
@@ -12,12 +21,16 @@ class FeedContainer extends React.Component {
 			<FeedItem key={article.url} article={article} />
 		));
 		return (
-			<div className="ui sixteen wide center aligned container">
-				<h1 className="ui header">FeedContainer</h1>
+			<Container>
+				<Header as="h1">
+					{this.props.searchTerm
+						? `Showing search results for ${this.props.searchTerm}`
+						: "Showing latest headlines"}
+				</Header>
 				<br />
 				<br />
-				<div className="ui feed">{itemsArray}</div>
-			</div>
+				<Feed>{itemsArray}</Feed>
+			</Container>
 		);
 	}
 }
