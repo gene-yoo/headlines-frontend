@@ -5,14 +5,24 @@ const SignUp = props => {
 
 	let sourceOptions = props.sources.map(source => (
 		<div>
-			<input type="checkbox" name={source.slug} value={source.slug} />
+			<input
+				type="checkbox"
+				name="preferredSources"
+				value={source.id}
+				onChange={props.handleSignUpCheckboxes}
+			/>
 			<label htmlFor={source.slug}>{source.name}</label>
 		</div>
 	));
 
 	let categoryOptions = props.categories.map(category => (
 		<div>
-			<input type="checkbox" name={category.slug} value={category.slug} />
+			<input
+				type="checkbox"
+				name="preferredCategories"
+				value={category.id}
+				onChange={props.handleSignUpCheckboxes}
+			/>
 			<label htmlFor={category.slug}>{category.name}</label>
 		</div>
 	));
@@ -22,16 +32,30 @@ const SignUp = props => {
 			<h1>SignUp</h1>
 			<form className="ui form" onSubmit={props.handleSignupSubmit}>
 				<div className="field">
-					<input type="text" name="username" placeholder="Username" />
+					<input
+						onChange={props.handleSignUpTerms}
+						value={props.signUpTerms.username}
+						type="text"
+						name="username"
+						placeholder="Username"
+					/>
 				</div>
 				<div className="field">
-					<input type="text" name="password" placeholder="Password" />
+					<input
+						onChange={props.handleSignUpTerms}
+						value={props.signUpTerms.password}
+						type="text"
+						name="password"
+						placeholder="Password"
+					/>
 				</div>
 
 				<div className="field">
 					<input
+						onChange={props.handleSignUpTerms}
+						value={props.signUpTerms.passwordConfirmation}
 						type="text"
-						name="password"
+						name="passwordConfirmation"
 						placeholder="Password Confirmation"
 					/>
 				</div>

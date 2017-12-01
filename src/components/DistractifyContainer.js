@@ -16,27 +16,30 @@ class DistractifyContainer extends React.Component {
 			searchTerm: "",
 			results: [],
 			sources: [],
-			categories: []
+			categories: [],
+			signUpTerms: {
+				username: "",
+				password: "",
+				passwordConfirmation: "",
+				preferredSources: [],
+				preferredCategories: []
+			}
 		};
 	}
 
-	// componentDidMount() {
-	// 	fetch("http://localhost:3000/api/v1/signup")
-	// 		.then(res => res.json())
-	// 		.then(json =>
-	// 			this.setState({ sources: json.sources, categories: json.categories })
-	// 		);
-	// }
-
-	getSignup() {
-		let results = api.signupForm();
-		// console.log("results from distractify container: ", results);
+	componentDidMount() {
+		api
+			.getAllSourcesAndCategories()
+			.then(res =>
+				this.setState({ sources: res.sources, categories: res.categories })
+			);
 	}
 
 	getFeed() {
 		// console.log("getting feed");
 		api.getFeed().then(json => this.setFeed(json));
 	}
+
 	setFeed(json) {
 		this.setState({ feed: json.articles });
 	}
@@ -52,9 +55,43 @@ class DistractifyContainer extends React.Component {
 		// this.setState({ searchTerm: "" });
 	}
 
+	handleSignUpTerms(event) {
+		this.setState(
+			{
+				signUpTerms: {
+					...this.state.signUpTerms,
+					[event.target.name]: event.target.value
+				}
+			},
+			() => console.log(this.state.signUpTerms)
+		);
+	}
+
+	handleSignUpCheckboxes(event) {
+		let collection = this.state.signUpTerms[event.target.name];
+
+		if (event.target.checked) {
+			collection.push(parseInt(event.target.value));
+		} else {
+			collection = collection.filter(
+				item => item !== parseInt(event.target.value)
+			);
+		}
+
+		this.setState(
+			{
+				signUpTerms: {
+					...this.state.signUpTerms,
+					[event.target.name]: collection
+				}
+			},
+			() => console.log(this.state.signUpTerms)
+		);
+	}
+
 	handleSignupSubmit(event) {
 		event.preventDefault();
-		// console.log("handling signup submit");
+		api.postNewUser(this.state.signUpTerms, this.props.loginMethod);
 	}
 
 	setResults(json) {
@@ -103,6 +140,11 @@ class DistractifyContainer extends React.Component {
 									<SignUp
 										categories={this.state.categories}
 										sources={this.state.sources}
+										signUpTerms={this.state.signUpTerms}
+										handleSignUpTerms={this.handleSignUpTerms.bind(this)}
+										handleSignUpCheckboxes={this.handleSignUpCheckboxes.bind(
+											this
+										)}
 										handleSignupSubmit={this.handleSignupSubmit.bind(this)}
 									/>
 								);
