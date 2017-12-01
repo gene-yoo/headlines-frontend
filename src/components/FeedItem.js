@@ -12,7 +12,7 @@ const FeedItem = props => {
 			/>
 			<Feed.Content>
 				<Feed.Summary>
-					{props.article.title}
+					<a href={props.article.url}>{props.article.title}</a>
 					<Feed.Date>{props.article.publishedAt}</Feed.Date>
 				</Feed.Summary>
 				<Feed.Extra text>{props.article.description}</Feed.Extra>

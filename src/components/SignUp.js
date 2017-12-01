@@ -1,4 +1,5 @@
 import React from "react";
+import { Container, Form, Header } from "semantic-ui-react";
 
 const SignUp = props => {
 	let sourceOptions = props.sources.map(source => (
@@ -26,10 +27,10 @@ const SignUp = props => {
 	));
 
 	return (
-		<div className="ui center aligned container">
-			<h1>SignUp</h1>
-			<form className="ui form" onSubmit={props.handleSignupSubmit}>
-				<div className="field">
+		<Container align="center">
+			<Header as="h1">SignUp</Header>
+			<Form onSubmit={props.handleSignupSubmit}>
+				<Form.Field className="field">
 					<input
 						onChange={props.handleSignUpTerms}
 						value={props.signUpTerms.username}
@@ -37,8 +38,8 @@ const SignUp = props => {
 						name="username"
 						placeholder="Username"
 					/>
-				</div>
-				<div className="field">
+				</Form.Field>
+				<Form.Field>
 					<input
 						onChange={props.handleSignUpTerms}
 						value={props.signUpTerms.password}
@@ -46,9 +47,9 @@ const SignUp = props => {
 						name="password"
 						placeholder="Password"
 					/>
-				</div>
+				</Form.Field>
 
-				<div className="field">
+				<Form.Field>
 					<input
 						onChange={props.handleSignUpTerms}
 						value={props.signUpTerms.passwordConfirmation}
@@ -56,21 +57,21 @@ const SignUp = props => {
 						name="passwordConfirmation"
 						placeholder="Password Confirmation"
 					/>
-				</div>
+				</Form.Field>
 
 				<div>
-					<h3>Choose Sources: </h3>
+					<Header as="h3">Choose Sources: </Header>
 					{sourceOptions}
 
-					<h3>Choose Categories: </h3>
+					<Header as="h3">Choose Categories: </Header>
 					{categoryOptions}
 				</div>
 
-				<div className="field">
+				<Form.Field>
 					<input type="submit" className="ui button" />
-				</div>
-			</form>
-		</div>
+				</Form.Field>
+			</Form>
+		</Container>
 	);
 };
 

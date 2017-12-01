@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Icon, Search, Form, Input } from "semantic-ui-react";
+import { Menu, Icon, Search, Form, Input, Button } from "semantic-ui-react";
 
 const NavBar = props => {
+	console.log("props within navbar: ", props);
+
 	return (
 		<Menu attached="top" color="red" inverted>
 			<Menu.Item>
@@ -11,9 +13,15 @@ const NavBar = props => {
 				</Link>
 			</Menu.Item>
 			<Menu.Item>
-				<Link to="/login">
-					<button className="ui middle aligned button">Login</button>
-				</Link>
+				{!props.user.username ? (
+					<Link to="/login">
+						<Button align="middle">Login</Button>
+					</Link>
+				) : (
+					<Button align="middle" onClick={props.handleLogout}>
+						Logout
+					</Button>
+				)}
 			</Menu.Item>
 			<Menu.Item position="right">
 				<Form

@@ -3,7 +3,6 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import FeedContainer from "./FeedContainer";
-import ResultsContainer from "./ResultsContainer";
 import { Route, Switch, withRouter } from "react-router-dom";
 import api from "../services/api";
 import { Segment } from "semantic-ui-react";
@@ -11,6 +10,7 @@ import { Segment } from "semantic-ui-react";
 class DistractifyContainer extends React.Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			feed: [],
 			searchTerm: "",
@@ -120,8 +120,10 @@ class DistractifyContainer extends React.Component {
 			<div>
 				<NavBar
 					searchTerm={this.state.searchTerm}
+					user={this.props.user}
 					handleSearchTerm={this.handleSearchTerm.bind(this)}
 					handleSearch={this.handleSearch.bind(this)}
+					handleLogout={this.props.logoutMethod}
 				/>
 				<Segment attached="bottom">
 					<Switch>

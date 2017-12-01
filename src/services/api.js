@@ -44,6 +44,13 @@ const api = {
 		})
 			.then(res => res.json())
 			.then(res => login(res));
+	},
+
+	getCurrentUser: token => {
+		console.log("inside get current user", token);
+		return fetch(`${backendURL}/current_user`, {
+			headers: Object.assign({}, backendHeaders, { token: token })
+		}).then(res => res.json());
 	}
 };
 
