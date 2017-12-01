@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "./NavBar";
 import Login from "./Login";
+import SignUp from "./SignUp";
 import FeedContainer from "./FeedContainer";
 import ResultsContainer from "./ResultsContainer";
 import { Route, Switch } from "react-router-dom";
@@ -12,8 +13,23 @@ class DistractifyContainer extends React.Component {
 		this.state = {
 			feed: [],
 			searchTerm: "",
-			results: []
+			results: [],
+			sources: [],
+			categories: []
 		};
+	}
+
+	componentDidMount() {
+		fetch("http://localhost:3000/api/v1/signup")
+			.then(res => res.json())
+			.then(json =>
+				this.setState({ sources: json.sources, categories: json.categories })
+			);
+	}
+
+	getSignup() {
+		let results = api.signupForm();
+		console.log("results from distractify container: ", results);
 	}
 
 	getFeed() {
@@ -32,12 +48,18 @@ class DistractifyContainer extends React.Component {
 		this.setState({ searchTerm: "" });
 	}
 
+	handleSignupSubmit(event) {
+		event.preventDefault();
+		console.log("handling signup submit");
+	}
+
 	setResults(json) {
 		this.props.history.push("/results");
 		this.setState({ results: json.articles });
 	}
 
 	render() {
+		console.log(this.state);
 		return (
 			<div>
 				<NavBar
@@ -68,6 +90,18 @@ class DistractifyContainer extends React.Component {
 							}}
 						/>
 						<Route path="/login" component={Login} />
+						<Route
+							path="/signup"
+							render={() => {
+								return (
+									<SignUp
+										categories={this.state.categories}
+										sources={this.state.sources}
+										handleSignupSubmit={this.handleSignupSubmit.bind(this)}
+									/>
+								);
+							}}
+						/>
 					</Switch>
 				</div>
 			</div>
