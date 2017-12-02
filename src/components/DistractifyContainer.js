@@ -40,7 +40,6 @@ class DistractifyContainer extends React.Component {
 	}
 
 	getFeed() {
-		// console.log("getting feed");
 		api.getFeed().then(json => this.setFeed(json));
 	}
 
@@ -111,7 +110,6 @@ class DistractifyContainer extends React.Component {
 
 	handleLoginSubmit(event) {
 		event.preventDefault();
-		console.log("inside submit");
 		api.loginUser(this.state.loginTerms, this.props.loginMethod);
 	}
 

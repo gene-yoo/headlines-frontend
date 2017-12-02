@@ -1,10 +1,10 @@
 import React from "react";
-import { Container, Form } from "semantic-ui-react";
+import { Container, Form, Header, Button } from "semantic-ui-react";
 
 const Login = props => {
 	return (
 		<Container align="center">
-			<h1>Login</h1>
+			<Header as="h1">Login</Header>
 			<Form onSubmit={props.handleLoginSubmit}>
 				<Form.Field>
 					<input
@@ -25,7 +25,7 @@ const Login = props => {
 					/>
 				</Form.Field>
 				<Form.Field>
-					<input type="submit" className="ui button" />
+					<Button type="submit">Submit</Button>
 				</Form.Field>
 			</Form>
 		</Container>

@@ -18,13 +18,12 @@ class App extends Component {
 	componentDidMount() {
 		let token = localStorage.getItem("token");
 
-		if (token) {
-			api.getCurrentUser(token).then(res => this.login(res));
-		}
+		// if (token) {
+		// 	api.getCurrentUser(token).then(res => this.login(res));
+		// }
 	}
 
 	login(res) {
-		console.log("inside login method, res is: ", res);
 		localStorage.setItem("token", res.token);
 
 		this.setState(

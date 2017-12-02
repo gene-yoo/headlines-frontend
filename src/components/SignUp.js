@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Form, Header } from "semantic-ui-react";
+import { Container, Form, Header, Button } from "semantic-ui-react";
 
 const SignUp = props => {
 	let sourceOptions = props.sources.map(source => (
@@ -68,7 +68,7 @@ const SignUp = props => {
 				</div>
 
 				<Form.Field>
-					<input type="submit" className="ui button" />
+					<Button type="submit">Submit</Button>
 				</Form.Field>
 			</Form>
 		</Container>
