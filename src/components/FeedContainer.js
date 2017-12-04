@@ -1,7 +1,7 @@
 import React from "react";
 import FeedItem from "./FeedItem";
-import api from "../services/api";
 import { Feed, Container, Header } from "semantic-ui-react";
+import { withRouter } from "react-router-dom";
 
 class FeedContainer extends React.Component {
 	constructor(props) {
@@ -11,9 +11,24 @@ class FeedContainer extends React.Component {
 			isSearchResults: false
 		};
 	}
+	componentDidMount() {
+		this.checkLoggedIn();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.checkLoggedIn();
+	}
+
+	checkLoggedIn() {
+		if (
+			this.props.history.location.pathname === "/feed" &&
+			localStorage.length === 0
+		) {
+			this.props.history.push("/login");
+		}
+	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-		console.log(nextProps.feed !== this.props.feed);
 		return nextProps.feed !== this.props.feed;
 	}
 
@@ -36,4 +51,4 @@ class FeedContainer extends React.Component {
 	}
 }
 
-export default FeedContainer;
+export default withRouter(FeedContainer);

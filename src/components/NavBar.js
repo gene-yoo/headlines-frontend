@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Icon, Search, Form, Input, Button } from "semantic-ui-react";
+import { Menu, Form, Input, Button, Dropdown } from "semantic-ui-react";
 
 const NavBar = props => {
 	return (
@@ -13,12 +13,24 @@ const NavBar = props => {
 			<Menu.Item>
 				{!props.user.username ? (
 					<Link to="/login">
-						<Button align="middle">Login</Button>
+						<Button align="middle" color="red">
+							Login
+						</Button>
 					</Link>
 				) : (
-					<Button align="middle" onClick={props.handleLogout}>
-						Logout
-					</Button>
+					<Dropdown item text={`Welcome, ${props.user.username}`} color="red">
+						<Dropdown.Menu color="red" inverted="false">
+							<Dropdown.Item>
+								<Link to="/my_profile">My Profile</Link>
+							</Dropdown.Item>
+							<Dropdown.Item>
+								<Link to="/my_profile">Edit Profile</Link>
+							</Dropdown.Item>
+							<Dropdown.Item onClick={props.handleLogout}>
+								<Link to="/login">Logout</Link>
+							</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
 				)}
 			</Menu.Item>
 			<Menu.Item position="right">

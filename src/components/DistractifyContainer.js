@@ -3,16 +3,14 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import FeedContainer from "./FeedContainer";
+import ProfileContainer from "./ProfileContainer";
 import { Route, Switch, withRouter } from "react-router-dom";
 import api from "../services/api";
 import { Segment } from "semantic-ui-react";
-import NewsContainer from "./NewsContainer";
-import UsersContainer from "./UsersContainer";
 
 class DistractifyContainer extends React.Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			feed: [],
 			searchTerm: "",
@@ -27,8 +25,7 @@ class DistractifyContainer extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log(nextProps.user);
-		if (!this.props.user.id) {
+		if (!this.props.user.id && !!nextProps.user.id) {
 			this.getFeed(nextProps.user);
 		}
 	}
@@ -57,7 +54,7 @@ class DistractifyContainer extends React.Component {
 	}
 
 	setFeed(json) {
-		this.setState({ feed: json.articles }, () => console.log(this.state.feed));
+		this.setState({ feed: json.articles });
 	}
 
 	setResults(json) {
@@ -97,6 +94,7 @@ class DistractifyContainer extends React.Component {
 									<FeedContainer
 										// getFeed={this.getFeed.bind(this)}
 										feed={this.state.feed}
+										user={this.props.user}
 									/>
 								);
 							}}
@@ -116,6 +114,11 @@ class DistractifyContainer extends React.Component {
 									handleSignupSubmit={this.handleSignupSubmit.bind(this)}
 								/>
 							)}
+						/>
+
+						<Route
+							path="/my_profile"
+							render={() => <ProfileContainer user={this.props.user} />}
 						/>
 					</Switch>
 				</Segment>

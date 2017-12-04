@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Form, Header, Button } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 class Login extends React.Component {
 	constructor(props) {
@@ -49,6 +50,9 @@ class Login extends React.Component {
 						<Button type="submit">Submit</Button>
 					</Form.Field>
 				</Form>
+				<Header as="h6">
+					New to Distractify? <Link to="/signup">Sign Up</Link>
+				</Header>
 			</Container>
 		);
 	}
