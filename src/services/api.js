@@ -32,8 +32,15 @@ const api = {
 		});
 	},
 
-	getAllSourcesAndCategories: () => {
-		return fetch(`${backendURL}/signup`).then(res => res.json());
+	editUser: (info, updateMethod) => {
+		console.log("in edit user", info);
+		fetch(`${backendURL}/users/${info.id}`, {
+			method: "PUT",
+			body: JSON.stringify({ user: info }),
+			headers: backendHeaders
+		})
+			.then(res => res.json())
+			.then(res => updateMethod(res));
 	},
 
 	postNewUser: (data, login) => {

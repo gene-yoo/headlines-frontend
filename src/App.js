@@ -11,7 +11,8 @@ class App extends Component {
 		this.state = {
 			auth: {
 				user: {}
-			}
+			},
+			isLoaded: false
 		};
 	}
 
@@ -28,10 +29,27 @@ class App extends Component {
 			{
 				auth: {
 					user: res
-				}
+				},
+				isLoaded: true
 			},
-			() => this.props.history.push("/feed")
+			() => {
+				if (
+					this.props.history.location.pathname === "/login" ||
+					this.props.history.location.pathname === "/signup"
+				) {
+					this.props.history.push("/feed");
+				}
+			}
 		);
+	}
+
+	updateUser(userData) {
+		this.setState({
+			auth: {
+				user: userData
+			}
+		});
+		this.props.history.push("/feed");
 	}
 
 	logout() {
@@ -50,13 +68,18 @@ class App extends Component {
 		return (
 			<Route
 				path="/"
-				render={() => (
-					<DistractifyContainer
-						loginMethod={this.login.bind(this)}
-						logoutMethod={this.logout.bind(this)}
-						user={this.state.auth.user}
-					/>
-				)}
+				render={() => {
+					return this.state.isLoaded ? (
+						<DistractifyContainer
+							loginMethod={this.login.bind(this)}
+							logoutMethod={this.logout.bind(this)}
+							user={this.state.auth.user}
+							updateUserMethod={this.updateUser.bind(this)}
+						/>
+					) : (
+						<h1>Loading...</h1>
+					);
+				}}
 			/>
 		);
 	}

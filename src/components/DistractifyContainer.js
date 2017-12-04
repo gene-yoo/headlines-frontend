@@ -22,17 +22,28 @@ class DistractifyContainer extends React.Component {
 
 	componentDidMount() {
 		// setInterval(this.getFeed, 10000);
+		this.getFeed(this.props.user);
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (!this.props.user.id && !!nextProps.user.id) {
-			this.getFeed(nextProps.user);
+	// componentWillReceiveProps(nextProps) {
+	// 	if (!this.props.user.id && !!nextProps.user.id) {
+	// 		this.getFeed(nextProps.user);
+	// 	}
+	// }
+
+	checkLoggedIn() {
+		if (
+			this.props.history.location.pathname === "/feed" &&
+			localStorage.length === 0
+		) {
+			this.props.history.push("/login");
 		}
 	}
 
 	handleSearchTerm(ev) {
 		this.setState({ searchTerm: ev.target.value });
 	}
+
 	handleSearch() {
 		api
 			.search(this.state.searchTerm)
@@ -47,6 +58,10 @@ class DistractifyContainer extends React.Component {
 
 	handleLoginSubmit(loginCredentials) {
 		api.loginUser(loginCredentials, this.props.loginMethod);
+	}
+
+	handleEditProfile(info) {
+		api.editUser(info, this.props.updateUserMethod);
 	}
 
 	getFeed(user) {
@@ -82,6 +97,7 @@ class DistractifyContainer extends React.Component {
 									<FeedContainer
 										feed={this.state.results}
 										searchTerm={this.state.searchTerm}
+										checkLoggedIn={this.checkLoggedIn.bind(this)}
 									/>
 								);
 							}}
@@ -92,9 +108,9 @@ class DistractifyContainer extends React.Component {
 							render={() => {
 								return (
 									<FeedContainer
-										// getFeed={this.getFeed.bind(this)}
 										feed={this.state.feed}
 										user={this.props.user}
+										checkLoggedIn={this.checkLoggedIn.bind(this)}
 									/>
 								);
 							}}
@@ -118,7 +134,13 @@ class DistractifyContainer extends React.Component {
 
 						<Route
 							path="/my_profile"
-							render={() => <ProfileContainer user={this.props.user} />}
+							render={() => (
+								<ProfileContainer
+									user={this.props.user}
+									checkLoggedIn={this.checkLoggedIn.bind(this)}
+									handleEditProfile={this.handleEditProfile.bind(this)}
+								/>
+							)}
 						/>
 					</Switch>
 				</Segment>

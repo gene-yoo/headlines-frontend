@@ -12,20 +12,11 @@ class FeedContainer extends React.Component {
 		};
 	}
 	componentDidMount() {
-		this.checkLoggedIn();
+		this.props.checkLoggedIn();
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.checkLoggedIn();
-	}
-
-	checkLoggedIn() {
-		if (
-			this.props.history.location.pathname === "/feed" &&
-			localStorage.length === 0
-		) {
-			this.props.history.push("/login");
-		}
+		this.props.checkLoggedIn();
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
