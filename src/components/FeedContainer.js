@@ -12,8 +12,9 @@ class FeedContainer extends React.Component {
 		};
 	}
 
-	componentDidMount() {
-		this.props.getFeed();
+	shouldComponentUpdate(nextProps, nextState) {
+		console.log(nextProps.feed !== this.props.feed);
+		return nextProps.feed !== this.props.feed;
 	}
 
 	render() {

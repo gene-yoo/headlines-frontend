@@ -9,10 +9,20 @@ const backendHeaders = {
 };
 
 const api = {
-	getFeed: () => {
-		return fetch(`${newsURL}/top-headlines?sources=bbc-news,the-verge`, {
+	getFeed: user => {
+		let sources = user.source_slugs.join(",");
+		let categories = user.category_names.join("&");
+		return fetch(`${newsURL}/top-headlines?sources=${sources}`, {
 			headers: newsHeaders
 		}).then(res => res.json());
+
+		// if (user.category_names.length > 0) {
+		// 	fetch(`${newsURL}/top-headlines?category=${categories}`, {
+		// 		headers: newsHeaders
+		// 	})
+		// 		.then(res => res.json())
+		// 		.then(res => results.push(res.articles));
+		// }
 	},
 
 	search: term => {
@@ -36,7 +46,7 @@ const api = {
 	},
 
 	loginUser: (data, login) => {
-		console.log("inside loginUser");
+		// console.log("inside loginUser");
 		fetch(`${backendURL}/login`, {
 			method: "POST",
 			body: JSON.stringify({ user: data }),
@@ -47,7 +57,7 @@ const api = {
 	},
 
 	getCurrentUser: token => {
-		console.log("inside get current user", token);
+		// console.log("inside get current user", token);
 		return fetch(`${backendURL}/current_user`, {
 			headers: Object.assign({}, backendHeaders, { token: token })
 		}).then(res => res.json());

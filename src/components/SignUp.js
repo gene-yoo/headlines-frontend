@@ -38,7 +38,7 @@ class SignUp extends React.Component {
 	}
 
 	render() {
-		let sourceOptions = this.props.sources.map(source => (
+		let sourceOptions = FormInfo.sources.map(source => (
 			<div>
 				<input
 					type="checkbox"
@@ -50,7 +50,7 @@ class SignUp extends React.Component {
 			</div>
 		));
 
-		let categoryOptions = this.props.categories.map(category => (
+		let categoryOptions = FormInfo.categories.map(category => (
 			<div>
 				<input
 					type="checkbox"
