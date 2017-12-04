@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 // import dotenv from "dotenv";
 // dotenv.config();
 // console.log(dotenv);
-console.log(process.env.REACT_APP_API_KEY);
+// console.log(process.env.REACT_APP_API_KEY);
 
 ReactDOM.render(
 	<Router>
