@@ -6,6 +6,8 @@ import FeedContainer from "./FeedContainer";
 import { Route, Switch, withRouter } from "react-router-dom";
 import api from "../services/api";
 import { Segment } from "semantic-ui-react";
+import NewsContainer from "./NewsContainer";
+import UsersContainer from "./UsersContainer";
 
 class DistractifyContainer extends React.Component {
 	constructor(props) {
@@ -16,18 +18,7 @@ class DistractifyContainer extends React.Component {
 			searchTerm: "",
 			results: [],
 			sources: [],
-			categories: [],
-			signUpTerms: {
-				username: "",
-				password: "",
-				passwordConfirmation: "",
-				preferredSources: [],
-				preferredCategories: []
-			},
-			loginTerms: {
-				username: "",
-				password: ""
-			}
+			categories: []
 		};
 	}
 
@@ -63,54 +54,12 @@ class DistractifyContainer extends React.Component {
 		this.setState({ results: json.articles });
 	}
 
-	handleSignUpTerms(event) {
-		this.setState({
-			signUpTerms: {
-				...this.state.signUpTerms,
-				[event.target.name]: event.target.value
-			}
-		});
+	handleSignupSubmit(signupCredentials) {
+		api.postNewUser(signupCredentials, this.props.loginMethod);
 	}
 
-	handleSignUpCheckboxes(event) {
-		let collection = this.state.signUpTerms[event.target.name];
-
-		if (event.target.checked) {
-			collection.push(parseInt(event.target.value));
-		} else {
-			collection = collection.filter(
-				item => item !== parseInt(event.target.value)
-			);
-		}
-
-		this.setState({
-			signUpTerms: {
-				...this.state.signUpTerms,
-				[event.target.name]: collection
-			}
-		});
-	}
-
-	handleSignupSubmit(event) {
-		event.preventDefault();
-		api.postNewUser(this.state.signUpTerms, this.props.loginMethod);
-	}
-
-	handleLoginTerms(event) {
-		this.setState(
-			{
-				loginTerms: {
-					...this.state.loginTerms,
-					[event.target.name]: event.target.value
-				}
-			},
-			() => console.log(this.state.loginTerms)
-		);
-	}
-
-	handleLoginSubmit(event) {
-		event.preventDefault();
-		api.loginUser(this.state.loginTerms, this.props.loginMethod);
+	handleLoginSubmit(loginCredentials) {
+		api.loginUser(loginCredentials, this.props.loginMethod);
 	}
 
 	render() {
@@ -125,6 +74,9 @@ class DistractifyContainer extends React.Component {
 				/>
 				<Segment attached="bottom">
 					<Switch>
+						<Route path="/news" component={NewsContainer} />
+						<Route path="/users" component={UsersContainer} />
+
 						<Route
 							path="/results"
 							render={() => {
@@ -150,11 +102,7 @@ class DistractifyContainer extends React.Component {
 						<Route
 							path="/login"
 							render={() => (
-								<Login
-									handleLoginTerms={this.handleLoginTerms.bind(this)}
-									handleLoginSubmit={this.handleLoginSubmit.bind(this)}
-									loginTerms={this.state.loginTerms}
-								/>
+								<Login handleLoginSubmit={this.handleLoginSubmit.bind(this)} />
 							)}
 						/>
 						<Route
@@ -164,11 +112,6 @@ class DistractifyContainer extends React.Component {
 									<SignUp
 										categories={this.state.categories}
 										sources={this.state.sources}
-										signUpTerms={this.state.signUpTerms}
-										handleSignUpTerms={this.handleSignUpTerms.bind(this)}
-										handleSignUpCheckboxes={this.handleSignUpCheckboxes.bind(
-											this
-										)}
 										handleSignupSubmit={this.handleSignupSubmit.bind(this)}
 									/>
 								);

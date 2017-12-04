@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { Menu, Icon, Search, Form, Input, Button } from "semantic-ui-react";
 
 const NavBar = props => {
-	console.log("props within navbar: ", props);
-
 	return (
 		<Menu attached="top" color="red" inverted>
 			<Menu.Item>
