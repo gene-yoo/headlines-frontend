@@ -13,6 +13,7 @@ class FeedContainer extends React.Component {
 	}
 	componentDidMount() {
 		this.props.checkLoggedIn();
+		this.props.getFeedMethod();
 	}
 
 	componentWillReceiveProps(nextProps) {

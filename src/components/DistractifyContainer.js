@@ -22,13 +22,17 @@ class DistractifyContainer extends React.Component {
 
 	componentDidMount() {
 		// setInterval(this.getFeed, 10000);
-		this.getFeed(this.props.user);
+		this.getFeed();
 	}
 
 	// componentWillReceiveProps(nextProps) {
 	// 	if (!this.props.user.id && !!nextProps.user.id) {
 	// 		this.getFeed(nextProps.user);
 	// 	}
+	// }
+
+	// componentWillUpdate() {
+	// 	this.getFeed(this.props.user);
 	// }
 
 	checkLoggedIn() {
@@ -64,8 +68,8 @@ class DistractifyContainer extends React.Component {
 		api.editUser(info, this.props.updateUserMethod);
 	}
 
-	getFeed(user) {
-		api.getFeed(user).then(json => this.setFeed(json));
+	getFeed() {
+		api.getFeed(this.props.user).then(json => this.setFeed(json));
 	}
 
 	setFeed(json) {
@@ -110,6 +114,7 @@ class DistractifyContainer extends React.Component {
 									<FeedContainer
 										feed={this.state.feed}
 										user={this.props.user}
+										getFeedMethod={this.getFeed.bind(this)}
 										checkLoggedIn={this.checkLoggedIn.bind(this)}
 									/>
 								);
