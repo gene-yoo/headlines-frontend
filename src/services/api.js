@@ -11,7 +11,7 @@ const backendHeaders = {
 const api = {
 	getFeed: user => {
 		let sources = user.source_slugs.join(",");
-		let categories = user.category_names.join("&");
+
 		return fetch(`${newsURL}/top-headlines?sources=${sources}`, {
 			headers: newsHeaders
 		}).then(res => res.json());

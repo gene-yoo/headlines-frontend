@@ -6,8 +6,6 @@ import FeedContainer from "./FeedContainer";
 import { Route, Switch, withRouter } from "react-router-dom";
 import api from "../services/api";
 import { Segment } from "semantic-ui-react";
-import NewsContainer from "./NewsContainer";
-import UsersContainer from "./UsersContainer";
 
 class DistractifyContainer extends React.Component {
 	constructor(props) {
@@ -57,7 +55,9 @@ class DistractifyContainer extends React.Component {
 	}
 
 	setFeed(json) {
-		this.setState({ feed: json.articles }, () => console.log(this.state.feed));
+		this.setState({ feed: json.articles }, () =>
+			console.log("inside dc setfeed: ", this.state.feed)
+		);
 	}
 
 	setResults(json) {
@@ -66,6 +66,7 @@ class DistractifyContainer extends React.Component {
 	}
 
 	render() {
+		// console.log("re-rendering dc: ", this.state.feed);
 		return (
 			<div>
 				<NavBar
@@ -93,12 +94,8 @@ class DistractifyContainer extends React.Component {
 						<Route
 							path="/feed"
 							render={() => {
-								return (
-									<FeedContainer
-										// getFeed={this.getFeed.bind(this)}
-										feed={this.state.feed}
-									/>
-								);
+								console.log("re-rendering FC from DC: ", this.state.feed);
+								return <FeedContainer feed={this.state.feed} />;
 							}}
 						/>
 

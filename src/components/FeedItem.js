@@ -1,5 +1,5 @@
 import React from "react";
-import { Feed, Image } from "semantic-ui-react";
+import { Card, Feed, Image } from "semantic-ui-react";
 
 const FeedItem = props => {
 	return (
@@ -13,7 +13,9 @@ const FeedItem = props => {
 			<Feed.Content>
 				<Feed.Summary>
 					<a href={props.article.url}>{props.article.title}</a>
-					<Feed.Date>{props.article.publishedAt}</Feed.Date>
+					<Feed.Date>
+						{new Date(props.article.publishedAt).toLocaleString()}
+					</Feed.Date>
 				</Feed.Summary>
 				<Feed.Extra text>{props.article.description}</Feed.Extra>
 			</Feed.Content>
