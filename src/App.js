@@ -16,11 +16,31 @@ class App extends Component {
 		};
 	}
 
-	componentDidMount() {
+	updateCurrentUser() {
+		let reroutes = [
+			"/my_profile",
+			"/my_profile/edit",
+			"/feed",
+			"/network",
+			"/login"
+		];
 		let token = localStorage.getItem("token");
 		if (token) {
 			api.getCurrentUser(token).then(res => this.login(res));
+		} else {
+			if (reroutes.includes(this.props.history.location.pathname)) {
+				this.props.history.push("/login");
+				this.setState({ isLoaded: true });
+			}
 		}
+	}
+
+	componentDidMount() {
+		this.updateCurrentUser();
+	}
+
+	componentWillUpdate() {
+		this.updateCurrentUser();
 	}
 
 	login(res) {
@@ -49,7 +69,7 @@ class App extends Component {
 				user: userData
 			}
 		});
-		this.props.history.push("/feed");
+		this.props.history.push("/my_profile");
 	}
 
 	logout() {

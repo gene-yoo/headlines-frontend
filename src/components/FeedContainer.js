@@ -50,20 +50,15 @@ class FeedContainer extends React.Component {
 
 			let updatedSources = [...Object.values(filtered)];
 
-			this.setState(
-				{
-					allArticles: [...nextProps.feed],
-					currentArticles: [...nextProps.feed],
-					sources: { on: [...updatedSources], off: [] }
-				},
-				() => console.log(this.state.allArticles)
-			);
+			this.setState({
+				allArticles: [...nextProps.feed],
+				currentArticles: [...nextProps.feed],
+				sources: { on: [...updatedSources], off: [] }
+			});
 		}
 	}
 
 	handleToggleSource(ev) {
-		console.log(ev.target);
-
 		let updated = this.state.sources.on.filter(
 			article => article.id !== ev.target.parentElement.firstChild.value
 		);
@@ -74,9 +69,6 @@ class FeedContainer extends React.Component {
 	}
 
 	render() {
-		// console.log("rendering feed container");
-		console.log("FC state is: ", this.state.currentArticles);
-
 		let filtered = {};
 
 		let sources = [
@@ -104,11 +96,12 @@ class FeedContainer extends React.Component {
 		});
 
 		const itemsArray = this.state.currentArticles.map(article => (
-			<FeedItem key={article.url} article={article} />
+			<FeedItem
+				key={article.url}
+				article={article}
+				handleShare={this.props.handleShare}
+			/>
 		));
-
-		// console.log("items sources are: ", itemsSources);
-		// console.log("items array is: ", itemsArray);
 
 		return (
 			<Container>

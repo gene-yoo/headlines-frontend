@@ -24,7 +24,7 @@ const NavBar = props => {
 								<Link to="/my_profile">My Profile</Link>
 							</Dropdown.Item>
 							<Dropdown.Item>
-								<Link to="/my_profile">Edit Profile</Link>
+								<Link to="/my_profile/edit">Edit Profile</Link>
 							</Dropdown.Item>
 							<Dropdown.Item onClick={props.handleLogout}>
 								<Link to="/login">Logout</Link>

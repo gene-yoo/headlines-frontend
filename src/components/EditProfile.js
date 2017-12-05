@@ -2,7 +2,7 @@ import React from "react";
 import { Header, Button, List, Grid } from "semantic-ui-react";
 import FormInfo from "../services/formInfo";
 
-class ProfileContainer extends React.Component {
+class EditProfile extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -19,6 +19,11 @@ class ProfileContainer extends React.Component {
 			username: this.props.user.username,
 			preferredSources: this.props.user.source_ids
 		});
+	}
+
+	handleUsernameChange(ev) {
+		ev.preventDefault();
+		this.setState({ username: ev.target.value });
 	}
 
 	handleEditCheckboxes(event) {
@@ -54,7 +59,13 @@ class ProfileContainer extends React.Component {
 		));
 		return (
 			<div>
-				<Header as="h1">ProfileContainer for {this.props.user.username}</Header>
+				<Header as="h1">Edit My Profile</Header>
+				<Header as="h3">Edit Username</Header>
+				<input
+					value={this.state.username}
+					type="text"
+					onChange={this.handleUsernameChange.bind(this)}
+				/>
 				<Header as="h3">Edit Favorite Sources</Header>
 
 				<List horizontal>{sourceOptions}</List>
@@ -67,4 +78,4 @@ class ProfileContainer extends React.Component {
 	}
 }
 
-export default ProfileContainer;
+export default EditProfile;
