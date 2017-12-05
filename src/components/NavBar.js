@@ -18,16 +18,22 @@ const NavBar = props => {
 						</Button>
 					</Link>
 				) : (
-					<Dropdown item text={`Welcome, ${props.user.username}`} color="red">
-						<Dropdown.Menu color="red" inverted="false">
+					<Dropdown text={`Welcome, ${props.user.username}`}>
+						<Dropdown.Menu>
 							<Dropdown.Item>
-								<Link to="/my_profile">My Profile</Link>
+								<Link to="/my_profile" style={{ color: "black" }}>
+									My Profile
+								</Link>
 							</Dropdown.Item>
 							<Dropdown.Item>
-								<Link to="/my_profile">Edit Profile</Link>
+								<Link to="/my_profile/edit" style={{ color: "black" }}>
+									Edit Profile
+								</Link>
 							</Dropdown.Item>
 							<Dropdown.Item onClick={props.handleLogout}>
-								<Link to="/login">Logout</Link>
+								<Link to="/login" style={{ color: "black" }}>
+									Logout
+								</Link>
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>

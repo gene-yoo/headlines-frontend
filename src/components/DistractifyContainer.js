@@ -2,8 +2,9 @@ import React from "react";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import Profile from "./Profile";
 import FeedContainer from "./FeedContainer";
-import ProfileContainer from "./ProfileContainer";
+import EditProfile from "./EditProfile";
 import { Route, Switch, withRouter } from "react-router-dom";
 import api from "../services/api";
 import { Segment } from "semantic-ui-react";
@@ -24,7 +25,9 @@ class DistractifyContainer extends React.Component {
 
 	componentDidMount() {
 		// setInterval(this.getFeed, 10000);
-		this.getFeed();
+		if (this.props.user.username) {
+			this.getFeed();
+		}
 	}
 
 	checkLoggedIn() {
@@ -79,6 +82,10 @@ class DistractifyContainer extends React.Component {
 		);
 	}
 
+	handleShare(article, value) {
+		api.postNewArticle(article, value, this.props.user);
+	}
+
 	getFeed() {
 		api.getFeed(this.props.user).then(json => this.setFeed(json));
 	}
@@ -107,7 +114,6 @@ class DistractifyContainer extends React.Component {
 	}
 
 	render() {
-		// console.log("re-rendering dc: ", this.state.feed);
 		return (
 			<div>
 				<NavBar
@@ -128,6 +134,7 @@ class DistractifyContainer extends React.Component {
 										feed={this.state.results}
 										searchTerm={this.state.searchTerm}
 										checkLoggedIn={this.checkLoggedIn.bind(this)}
+										handleShare={this.handleShare.bind(this)}
 									/>
 								);
 							}}
@@ -145,6 +152,7 @@ class DistractifyContainer extends React.Component {
 										allSources={this.state.allSources}
 										currentSourceIds={this.state.currentSourceIds}
 										checkLoggedIn={this.checkLoggedIn.bind(this)}
+										handleShare={this.handleShare.bind(this)}
 									/>
 								);
 							}}
@@ -167,12 +175,22 @@ class DistractifyContainer extends React.Component {
 						/>
 
 						<Route
-							path="/my_profile"
+							path="/my_profile/edit"
 							render={() => (
-								<ProfileContainer
+								<EditProfile
 									user={this.props.user}
 									checkLoggedIn={this.checkLoggedIn.bind(this)}
 									handleEditProfile={this.handleEditProfile.bind(this)}
+								/>
+							)}
+						/>
+						<Route
+							exact
+							path="/my_profile"
+							render={() => (
+								<Profile
+									user={this.props.user}
+									checkLoggedIn={this.checkLoggedIn.bind(this)}
 								/>
 							)}
 						/>

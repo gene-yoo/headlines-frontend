@@ -16,14 +16,6 @@ const api = {
 		return fetch(`${newsURL}/top-headlines?sources=${sources}`, {
 			headers: newsHeaders
 		}).then(res => res.json());
-
-		// if (user.category_names.length > 0) {
-		// 	fetch(`${newsURL}/top-headlines?category=${categories}`, {
-		// 		headers: newsHeaders
-		// 	})
-		// 		.then(res => res.json())
-		// 		.then(res => results.push(res.articles));
-		// }
 	},
 
 	search: term => {
@@ -69,6 +61,17 @@ const api = {
 		return fetch(`${backendURL}/current_user`, {
 			headers: Object.assign({}, backendHeaders, { token: token })
 		}).then(res => res.json());
+	},
+
+	postNewArticle: (article, value, user) => {
+		let data = Object.assign({}, article, { user_id: user.id, public: value });
+		fetch(`${backendURL}/articles`, {
+			method: "POST",
+			body: JSON.stringify({ article: data }),
+			headers: backendHeaders
+		})
+			.then(res => res.json())
+			.then(res => console.log(res));
 	}
 };
 

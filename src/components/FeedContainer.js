@@ -21,12 +21,13 @@ class FeedContainer extends React.Component {
 	}
 	componentDidMount() {
 		this.props.checkLoggedIn();
-		this.props.getFeedMethod();
+		if (this.props.user.username) {
+			this.props.getFeedMethod();
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
 		this.props.checkLoggedIn();
-
 		this.setState(
 			{
 				currentArticles: nextProps.feed.filter(article =>
@@ -38,10 +39,16 @@ class FeedContainer extends React.Component {
 		);
 	}
 
+	handleToggleSource(ev) {
+		let updated = this.state.sources.on.filter(
+			article => article.id !== ev.target.parentElement.firstChild.value
+		);
+	}
+
 	render() {
 		const itemsSources = this.props.allSources.map(source => {
 			return (
-				<div>
+				<div key={source.id}>
 					<Checkbox
 						toggle
 						checked={this.props.currentSourceIds.includes(source.id)}
@@ -54,13 +61,12 @@ class FeedContainer extends React.Component {
 		});
 
 		const itemsArray = this.state.currentArticles.map(article => (
-			<FeedItem key={article.url} article={article} />
+			<FeedItem
+				key={article.url}
+				article={article}
+				handleShare={this.props.handleShare}
+			/>
 		));
-
-		console.log(
-			"rendering current articles inside Feed Container: ",
-			itemsArray
-		);
 
 		return (
 			<Container>
