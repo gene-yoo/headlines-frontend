@@ -17,9 +17,14 @@ const api = {
 			headers: newsHeaders
 		}).then(res => res.json());
 	},
+	getNetworkFeed: () => {
+		return fetch(`${backendURL}/articles`, {
+			headers: backendHeaders
+		}).then(res => res.json());
+	},
 
 	search: term => {
-		return fetch(`${newsURL}/everything?q=${term}`, {
+		return fetch(`${newsURL}/everything?q=${term}&language=en`, {
 			headers: newsHeaders
 		});
 	},
@@ -72,6 +77,22 @@ const api = {
 		})
 			.then(res => res.json())
 			.then(res => console.log(res));
+	},
+
+	updateArticle: id => {
+		fetch(`${backendURL}/articles/${id}`, {
+			method: "PUT",
+			headers: backendHeaders
+		})
+			.then(res => res.json())
+			.then(res => console.log(res));
+	},
+
+	deleteArticle: id => {
+		fetch(`${backendURL}/articles/${id}`, {
+			method: "DELETE",
+			headers: backendHeaders
+		});
 	}
 };
 

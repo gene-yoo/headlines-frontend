@@ -1,12 +1,13 @@
 import React from "react";
 import FeedItem from "./FeedItem";
-import { Header, Feed, List, Button } from "semantic-ui-react";
-import { withRouter } from "react-router-dom";
+import { Header, Feed, List, Button, Grid } from "semantic-ui-react";
+import { withRouter, Link } from "react-router-dom";
 
 class Profile extends React.Component {
 	render() {
 		let articles = this.props.user.articles.map(article => {
 			let articleData = {
+				id: article.id,
 				title: article.title,
 				description: article.description,
 				author: article.author,
@@ -21,6 +22,9 @@ class Profile extends React.Component {
 					key={article.url}
 					article={articleData}
 					handleShare={this.props.handleShare}
+					handleDeleteArticle={this.props.handleDeleteArticle}
+					handleToggleArticleShare={this.props.handleToggleArticleShare}
+					user={this.props.user}
 				/>
 			);
 		});
@@ -39,20 +43,25 @@ class Profile extends React.Component {
 
 		return (
 			<div>
-				<Header as="h1">{`My Profile - ${this.props.user.username}`}</Header>
-				<Header as="h3">My Favorite News Sources</Header>
-				<List selection verticalAlign="middle">
-					{sources}
-				</List>
-				<Header as="h3">My Saved Articles</Header>
-				<Feed>{articles}</Feed>
-				<Button
-					onClick={ev => {
-						this.props.history.push("/my_profile/edit");
-					}}
-				>
-					Edit Profile
-				</Button>
+				<Header as="h1" align="center">
+					{`My Profile - ${this.props.user.username}`} <br />{" "}
+					<Link to="/my_profile/edit">Edit Profile</Link>
+				</Header>
+				<br />
+				<Grid width="16">
+					<Grid.Row>
+						<Grid.Column width="4" align="center">
+							<Header as="h3">My Favorite News Sources</Header>
+							<List selection verticalAlign="middle">
+								{sources}
+							</List>
+						</Grid.Column>
+						<Grid.Column width="8" align="center">
+							<Header as="h3">My Saved Articles</Header>
+							<Feed width="8">{articles.sort((a, b) => b.id - a.id)}</Feed>
+						</Grid.Column>
+					</Grid.Row>
+				</Grid>
 			</div>
 		);
 	}

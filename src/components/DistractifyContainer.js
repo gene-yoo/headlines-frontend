@@ -17,7 +17,8 @@ class DistractifyContainer extends React.Component {
 			searchTerm: "",
 			results: [],
 			allSources: [],
-			currentSourceIds: []
+			currentSourceIds: [],
+			networkFeed: []
 		};
 
 		this.getFeed = this.getFeed.bind(this);
@@ -86,6 +87,13 @@ class DistractifyContainer extends React.Component {
 		api.postNewArticle(article, value, this.props.user);
 	}
 
+	handleToggleArticleShare(articleId) {
+		api.updateArticle(articleId);
+	}
+	handleDeleteArticle(articleId, userId) {
+		api.deleteArticle(articleId);
+	}
+
 	getFeed() {
 		api.getFeed(this.props.user).then(json => this.setFeed(json));
 	}
@@ -113,7 +121,19 @@ class DistractifyContainer extends React.Component {
 		this.setState({ results: json.articles });
 	}
 
+	getNetworkFeed() {
+		console.log("getting network feed");
+		api.getNetworkFeed().then(res => this.setNetworkFeed(res));
+	}
+
+	setNetworkFeed(res) {
+		this.setState({ networkFeed: res });
+	}
+
 	render() {
+		console.log("RESULTS", this.state.results);
+		console.log("FEED", this.state.feed);
+		console.log("NEWSFEED", this.state.networkFeed);
 		return (
 			<div>
 				<NavBar
@@ -157,6 +177,19 @@ class DistractifyContainer extends React.Component {
 								);
 							}}
 						/>
+						<Route
+							path="/network"
+							render={() => (
+								<FeedContainer
+									feed={this.state.networkFeed}
+									user={this.props.user}
+									getFeedMethod={this.getNetworkFeed.bind(this)}
+									allSources={this.state.allSources}
+									currentSourceIds={this.state.currentSourceIds}
+									checkLoggedIn={this.checkLoggedIn.bind(this)}
+								/>
+							)}
+						/>
 
 						<Route
 							path="/login"
@@ -191,6 +224,10 @@ class DistractifyContainer extends React.Component {
 								<Profile
 									user={this.props.user}
 									checkLoggedIn={this.checkLoggedIn.bind(this)}
+									handleDeleteArticle={this.handleDeleteArticle.bind(this)}
+									handleToggleArticleShare={this.handleToggleArticleShare.bind(
+										this
+									)}
 								/>
 							)}
 						/>

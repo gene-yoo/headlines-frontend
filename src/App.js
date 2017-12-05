@@ -35,10 +35,14 @@ class App extends Component {
 		}
 	}
 
-	componentWillUpdate() {
-		let profileRoutes = ["/my_profile", "/my_profile/edit"];
+	componentWillReceiveProps(nextProps) {
+		let prevProfileRoutes = ["/my_profile", "/my_profile/edit"];
 		let token = localStorage.getItem("token");
-		if (token && profileRoutes.includes(this.props.history.location.pathname)) {
+		if (
+			token &&
+			nextProps.history.location.pathname === "/my_profile" &&
+			this.props.history.location.pathname !== "/my_profile"
+		) {
 			api.getCurrentUser(token).then(res => this.login(res));
 		}
 	}

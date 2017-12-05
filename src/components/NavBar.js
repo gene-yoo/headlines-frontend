@@ -1,13 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Form, Input, Button, Dropdown } from "semantic-ui-react";
+import { Menu, Form, Input, Button, Dropdown, Icon } from "semantic-ui-react";
 
 const NavBar = props => {
 	return (
 		<Menu attached="top" color="red" inverted>
 			<Menu.Item>
 				<Link to="/feed">
-					<i className="ui huge home icon" />
+					<Icon name="home" size="big" />
+				</Link>
+			</Menu.Item>
+			<Menu.Item>
+				<Link to="/network">
+					<Icon name="users" size="big" />
 				</Link>
 			</Menu.Item>
 			<Menu.Item>

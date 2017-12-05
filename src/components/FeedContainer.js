@@ -19,6 +19,7 @@ class FeedContainer extends React.Component {
 			currentArticles: []
 		};
 	}
+
 	componentDidMount() {
 		this.props.checkLoggedIn();
 		if (this.props.user.username) {
@@ -28,15 +29,23 @@ class FeedContainer extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.props.checkLoggedIn();
-		this.setState(
-			{
+		if (nextProps.history.location.pathname === "/network") {
+			if (this.props.location.pathname !== "/network") {
+				nextProps.getFeedMethod();
+			} else {
+				this.setState({ currentArticles: nextProps.feed });
+			}
+		} else if (this.props.history.location.pathname === "/feed") {
+			this.setState({
 				currentArticles: nextProps.feed.filter(article =>
 					nextProps.currentSourceIds.includes(article.source.id)
 				)
-			},
-			() =>
-				console.log("inside will receive props: ", this.state.currentArticles)
-		);
+			});
+		} else {
+			this.setState({
+				currentArticles: nextProps.feed
+			});
+		}
 	}
 
 	handleToggleSource(ev) {
@@ -46,40 +55,55 @@ class FeedContainer extends React.Component {
 	}
 
 	render() {
-		const itemsSources = this.props.allSources.map(source => {
+		let itemsSources = [];
+		if (this.props.history.location.pathname === "/feed") {
+			itemsSources = this.props.allSources.map(source => {
+				return (
+					<div key={source.id}>
+						<Checkbox
+							toggle
+							checked={this.props.currentSourceIds.includes(source.id)}
+							value={source.id}
+							label={source.name}
+							onClick={this.props.handleToggleSource}
+						/>
+					</div>
+				);
+			});
+		}
+		const itemsArray = this.state.currentArticles.map(article => {
+			if (!article.urlToImage) {
+				article = Object.assign({}, article, { urlToImage: article.image_url });
+			}
+
 			return (
-				<div key={source.id}>
-					<Checkbox
-						toggle
-						checked={this.props.currentSourceIds.includes(source.id)}
-						value={source.id}
-						label={source.name}
-						onClick={this.props.handleToggleSource}
-					/>
-				</div>
+				<FeedItem
+					key={article.url}
+					article={article}
+					handleShare={this.props.handleShare}
+				/>
 			);
 		});
-
-		const itemsArray = this.state.currentArticles.map(article => (
-			<FeedItem
-				key={article.url}
-				article={article}
-				handleShare={this.props.handleShare}
-			/>
-		));
 
 		return (
 			<Container>
 				<Grid>
-					<Grid.Column width="4">
-						<Header as="h1">Sources</Header>
-						{itemsSources}
-					</Grid.Column>
+					{this.props.history.location.pathname === "/feed" ? (
+						<Grid.Column width="4">
+							<Header as="h1">Sources</Header>
+							{itemsSources}
+						</Grid.Column>
+					) : (
+						<div />
+					)}
+
 					<Grid.Column width="12">
 						<Header as="h1">
 							{this.props.searchTerm
 								? `Showing search results for ${this.props.searchTerm}`
-								: "Showing latest headlines"}
+								: this.props.history.location.pathname !== "/network"
+									? "Showing latest headlines"
+									: "Articles shared by the distractify network"}
 						</Header>
 						<Feed>{itemsArray}</Feed>
 					</Grid.Column>
