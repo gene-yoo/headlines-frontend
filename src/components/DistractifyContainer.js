@@ -14,7 +14,9 @@ class DistractifyContainer extends React.Component {
 		this.state = {
 			feed: [],
 			searchTerm: "",
-			results: []
+			results: [],
+			allSources: [],
+			currentSourceIds: []
 		};
 
 		this.getFeed = this.getFeed.bind(this);
@@ -24,16 +26,6 @@ class DistractifyContainer extends React.Component {
 		// setInterval(this.getFeed, 10000);
 		this.getFeed();
 	}
-
-	// componentWillReceiveProps(nextProps) {
-	// 	if (!this.props.user.id && !!nextProps.user.id) {
-	// 		this.getFeed(nextProps.user);
-	// 	}
-	// }
-
-	// componentWillUpdate() {
-	// 	this.getFeed(this.props.user);
-	// }
 
 	checkLoggedIn() {
 		if (
@@ -68,14 +60,45 @@ class DistractifyContainer extends React.Component {
 		api.editUser(info, this.props.updateUserMethod);
 	}
 
+	handleToggleSource(ev) {
+		let updatedSourceIds = [...this.state.currentSourceIds];
+
+		if (updatedSourceIds.includes(ev.currentTarget.firstChild.value)) {
+			updatedSourceIds = updatedSourceIds.filter(
+				id => id !== ev.currentTarget.firstChild.value
+			);
+		} else {
+			updatedSourceIds.push(ev.currentTarget.firstChild.value);
+		}
+
+		this.setState(
+			{
+				currentSourceIds: updatedSourceIds
+			},
+			() => console.log(this.state.currentSourceIds)
+		);
+	}
+
 	getFeed() {
 		api.getFeed(this.props.user).then(json => this.setFeed(json));
 	}
 
 	setFeed(json) {
-		this.setState({ feed: json.articles }, () =>
-			console.log("inside dc setfeed: ", this.state.feed)
-		);
+		let sources = {};
+
+		json.articles.map(article => article.source).forEach(src => {
+			if (!Object.keys(sources).includes(src.id)) {
+				sources[src.id] = src;
+			}
+		});
+
+		sources = [...Object.values(sources)];
+
+		this.setState({
+			feed: json.articles,
+			allSources: sources,
+			currentSourceIds: sources.map(src => src.id)
+		});
 	}
 
 	setResults(json) {
@@ -118,6 +141,9 @@ class DistractifyContainer extends React.Component {
 										feed={this.state.feed}
 										user={this.props.user}
 										getFeedMethod={this.getFeed.bind(this)}
+										handleToggleSource={this.handleToggleSource.bind(this)}
+										allSources={this.state.allSources}
+										currentSourceIds={this.state.currentSourceIds}
 										checkLoggedIn={this.checkLoggedIn.bind(this)}
 									/>
 								);

@@ -16,12 +16,8 @@ class FeedContainer extends React.Component {
 
 		this.state = {
 			isSearchResults: false,
-			allArticles: [],
-			currentArticles: [],
-			sources: { on: [], off: [] }
+			currentArticles: []
 		};
-
-		this.handleToggleSource = this.handleToggleSource.bind(this);
 	}
 	componentDidMount() {
 		this.props.checkLoggedIn();
@@ -30,74 +26,28 @@ class FeedContainer extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.props.checkLoggedIn();
-	}
 
-	shouldComponentUpdate(nextProps, nextState) {
-		return nextProps.feed !== this.props.feed;
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (this.props !== nextProps) {
-			let filtered = {};
-
-			[
-				...this.state.currentArticles.map(article => article.source)
-			].forEach(src => {
-				if (!Object.keys(filtered).includes(src.id)) {
-					filtered[src.id] = src;
-				}
-			});
-
-			let updatedSources = [...Object.values(filtered)];
-
-			this.setState(
-				{
-					allArticles: [...nextProps.feed],
-					currentArticles: [...nextProps.feed],
-					sources: { on: [...updatedSources], off: [] }
-				},
-				() => console.log(this.state.allArticles)
-			);
-		}
-	}
-
-	handleToggleSource(ev) {
-		console.log(ev.target);
-
-		let updated = this.state.sources.on.filter(
-			article => article.id !== ev.target.parentElement.firstChild.value
+		this.setState(
+			{
+				currentArticles: nextProps.feed.filter(article =>
+					nextProps.currentSourceIds.includes(article.source.id)
+				)
+			},
+			() =>
+				console.log("inside will receive props: ", this.state.currentArticles)
 		);
-
-		this.setState({
-			currentArticles: updated
-		});
 	}
 
 	render() {
-		// console.log("rendering feed container");
-		console.log("FC state is: ", this.state.currentArticles);
-
-		let filtered = {};
-
-		let sources = [
-			...this.state.currentArticles.map(article => article.source)
-		].forEach(src => {
-			if (!Object.keys(filtered).includes(src.id)) {
-				filtered[src.id] = src;
-			}
-		});
-
-		let updatedSources = [...Object.values(filtered)];
-
-		const itemsSources = updatedSources.map(source => {
+		const itemsSources = this.props.allSources.map(source => {
 			return (
 				<div>
 					<Checkbox
 						toggle
-						defaultChecked
+						checked={this.props.currentSourceIds.includes(source.id)}
 						value={source.id}
 						label={source.name}
-						onChange={this.handleToggleSource}
+						onClick={this.props.handleToggleSource}
 					/>
 				</div>
 			);
@@ -107,8 +57,10 @@ class FeedContainer extends React.Component {
 			<FeedItem key={article.url} article={article} />
 		));
 
-		// console.log("items sources are: ", itemsSources);
-		// console.log("items array is: ", itemsArray);
+		console.log(
+			"rendering current articles inside Feed Container: ",
+			itemsArray
+		);
 
 		return (
 			<Container>
