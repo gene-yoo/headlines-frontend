@@ -64,13 +64,14 @@ class FeedContainer extends React.Component {
 	handleToggleSource(ev) {
 		console.log(ev.target);
 
-		let updated = updatedSources.filter(
+		let updated = this.state.sources.on.filter(
 			article => article.id !== ev.target.parentElement.firstChild.value
 		);
 
 		this.setState({
 			currentArticles: updated
 		});
+	}
 
 	render() {
 		// console.log("rendering feed container");
