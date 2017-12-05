@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 
 class Profile extends React.Component {
 	render() {
+		debugger;
 		let articles = this.props.user.articles.map(article => {
 			let articleData = {
 				title: article.title,
