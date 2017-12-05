@@ -73,7 +73,9 @@ class DistractifyContainer extends React.Component {
 	}
 
 	setFeed(json) {
-		this.setState({ feed: json.articles });
+		this.setState({ feed: json.articles }, () =>
+			console.log("inside dc setfeed: ", this.state.feed)
+		);
 	}
 
 	setResults(json) {
@@ -82,6 +84,7 @@ class DistractifyContainer extends React.Component {
 	}
 
 	render() {
+		// console.log("re-rendering dc: ", this.state.feed);
 		return (
 			<div>
 				<NavBar
