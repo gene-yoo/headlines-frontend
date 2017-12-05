@@ -66,7 +66,10 @@ const FeedItem = props => {
 						/>
 					</Button.Group>
 				) : (
-					<p floated="right">{`Shared to network: ${props.article.public}`}</p>
+					<Button.Group floated="right">
+						<Button>{props.article.public ? "unshare" : "share"}</Button>
+						<Button>Delete</Button>
+					</Button.Group>
 				)}
 			</Feed.Content>
 		</Feed.Event>

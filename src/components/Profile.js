@@ -4,10 +4,6 @@ import { Header, Feed, List, Button } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 
 class Profile extends React.Component {
-	componentDidMount() {
-		this.props.checkLoggedIn();
-	}
-
 	render() {
 		let articles = this.props.user.articles.map(article => {
 			let articleData = {
@@ -31,7 +27,7 @@ class Profile extends React.Component {
 
 		let sources = this.props.user.sources.map(src => {
 			return (
-				<List.Item>
+				<List.Item key={src.id}>
 					<List.Content>
 						<List.Header onClick={() => window.open(src.source_url)}>
 							{src.name}

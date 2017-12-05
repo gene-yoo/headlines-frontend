@@ -16,7 +16,7 @@ class App extends Component {
 		};
 	}
 
-	updateCurrentUser() {
+	componentDidMount() {
 		let reroutes = [
 			"/my_profile",
 			"/my_profile/edit",
@@ -35,12 +35,8 @@ class App extends Component {
 		}
 	}
 
-	componentDidMount() {
-		this.updateCurrentUser();
-	}
-
 	componentWillUpdate() {
-		this.updateCurrentUser();
+		console.log("APP COMPONENT WILL UPDATE");
 	}
 
 	login(res) {

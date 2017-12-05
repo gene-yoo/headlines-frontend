@@ -28,16 +28,6 @@ class DistractifyContainer extends React.Component {
 		}
 	}
 
-	// componentWillReceiveProps(nextProps) {
-	// 	if (!this.props.user.id && !!nextProps.user.id) {
-	// 		this.getFeed(nextProps.user);
-	// 	}
-	// }
-
-	// componentWillUpdate() {
-	// 	this.getFeed(this.props.user);
-	// }
-
 	checkLoggedIn() {
 		if (
 			this.props.history.location.pathname === "/feed" &&
@@ -163,7 +153,6 @@ class DistractifyContainer extends React.Component {
 								<Profile
 									user={this.props.user}
 									checkLoggedIn={this.checkLoggedIn.bind(this)}
-									handleShare={this.handleShare.bind(this)}
 								/>
 							)}
 						/>

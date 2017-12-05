@@ -25,7 +25,9 @@ class FeedContainer extends React.Component {
 	}
 	componentDidMount() {
 		this.props.checkLoggedIn();
-		this.props.getFeedMethod();
+		if (this.props.user.username) {
+			this.props.getFeedMethod();
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -83,7 +85,7 @@ class FeedContainer extends React.Component {
 
 		const itemsSources = updatedSources.map(source => {
 			return (
-				<div>
+				<div key={source.id}>
 					<Checkbox
 						toggle
 						defaultChecked
