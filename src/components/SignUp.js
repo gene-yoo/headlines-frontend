@@ -1,5 +1,12 @@
 import React from "react";
-import { Container, Form, Header, Button, Card } from "semantic-ui-react";
+import {
+	Container,
+	Form,
+	Header,
+	Button,
+	Card,
+	Input
+} from "semantic-ui-react";
 import FormInfo from "../services/formInfo";
 
 class SignUp extends React.Component {
@@ -39,14 +46,21 @@ class SignUp extends React.Component {
 
 	render() {
 		let sourceOptions = FormInfo.sources.map(source => (
-			<Card align="center" style={{ width: "100px", height: "50px" }}>
-				<input
-					type="checkbox"
-					name="preferredSources"
-					value={source.id}
-					onChange={this.handleSignUpCheckboxes}
-				/>
-				<Card.Header>{source.name}</Card.Header>
+			<Card
+				key={source.id}
+				align="center"
+				style={{ width: "115px", height: "70px" }}
+			>
+				{" "}
+				<Card.Header>
+					<Input
+						type="checkbox"
+						name="preferredSources"
+						value={source.id}
+						onChange={this.handleSignUpCheckboxes}
+					/>
+				</Card.Header>
+				<Card.Content style={{ paddingTop: "5px" }}>{source.name}</Card.Content>
 			</Card>
 		));
 
@@ -90,7 +104,7 @@ class SignUp extends React.Component {
 						</Form.Field>
 					</Container>
 					<br />
-					<Container style={{ width: "750px" }}>
+					<Container style={{ width: "900px", paddingLeft: "32px" }}>
 						<Header as="h3">Choose Sources: </Header>
 						<Card.Group style={{ paddingLeft: "42px" }}>
 							{sourceOptions}

@@ -1,6 +1,14 @@
 import React from "react";
 import FeedItem from "./FeedItem";
-import { Header, Feed, List, Button, Grid } from "semantic-ui-react";
+import {
+	Header,
+	Feed,
+	List,
+	Button,
+	Grid,
+	Container,
+	Item
+} from "semantic-ui-react";
 import { withRouter, Link } from "react-router-dom";
 
 class Profile extends React.Component {
@@ -42,7 +50,7 @@ class Profile extends React.Component {
 		});
 
 		return (
-			<div>
+			<Container>
 				<Header as="h1" align="center">
 					{`My Profile - ${this.props.user.username}`} <br />{" "}
 					<Link to="/my_profile/edit">
@@ -51,20 +59,19 @@ class Profile extends React.Component {
 				</Header>
 				<br />
 				<Grid width="16">
-					<Grid.Row>
-						<Grid.Column width="4" align="center">
-							<Header as="h3">My Favorite News Sources</Header>
-							<List selection verticalAlign="middle">
-								{sources}
-							</List>
-						</Grid.Column>
-						<Grid.Column width="8" align="center">
-							<Header as="h3">My Saved Articles</Header>
-							<Feed width="8">{articles.sort((a, b) => b.id - a.id)}</Feed>
-						</Grid.Column>
-					</Grid.Row>
+					<Grid.Column width="4" align="center">
+						<Header as="h3">My News Sources: </Header>
+						<List selection verticalAlign="middle">
+							{sources}
+						</List>
+					</Grid.Column>
+
+					<Grid.Column width="12" align="left">
+						<Header as="h3">My Saved Articles: </Header>
+						<Item.Group>{articles.sort((a, b) => b.id - a.id)}</Item.Group>
+					</Grid.Column>
 				</Grid>
-			</div>
+			</Container>
 		);
 	}
 }

@@ -94,18 +94,21 @@ const FeedItem = props => {
 					<Button
 						style={{
 							backgroundColor: "rgb(121, 178, 174)",
-							color: "white"
+							color: "white",
+							height: "35px"
 						}}
 						onClick={() => {
 							props.handleToggleArticleShare(props.article.id);
 						}}
 					>
-						{props.article.public ? "unshare" : "share"}
+						{props.article.public ? "Unshare" : "Share"}
 					</Button>
+					<Button.Or />
 					<Button
 						style={{
 							backgroundColor: "rgb(121, 178, 174)",
-							color: "white"
+							color: "white",
+							height: "35px"
 						}}
 						onClick={() => {
 							props.handleDeleteArticle(props.article.id);
