@@ -113,7 +113,7 @@ class FeedContainer extends React.Component {
 								? `Showing search results for ${this.props.searchTerm}`
 								: this.props.history.location.pathname !== "/network"
 									? "Showing Top Headlines: "
-									: "Articles Shared By The Distractify Network"}
+									: "Articles Shared By The Headlines Network"}
 						</Header>
 						<Item.Group>{itemsArray}</Item.Group>
 					</Grid.Column>

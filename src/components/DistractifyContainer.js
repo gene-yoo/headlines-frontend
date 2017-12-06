@@ -145,7 +145,11 @@ class DistractifyContainer extends React.Component {
 	}
 
 	setNetworkFeed(res) {
-		this.setState({ networkFeed: res });
+		console.log(res);
+		let articles = res.sort((a, b) =>
+			b.publishedAt.localeCompare(a.publishedAt)
+		);
+		this.setState({ networkFeed: articles });
 	}
 
 	render() {

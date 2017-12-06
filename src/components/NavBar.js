@@ -76,7 +76,6 @@ class NavBar extends React.Component {
 								placeholder="Search for articles by keyword ..."
 								style={{ width: "350px" }}
 								icon="search"
-								iconPosition="right"
 								focus
 								value={this.state.searchTerm}
 								onChange={this.handleSearchTerm.bind(this)}
