@@ -75,7 +75,9 @@ class App extends Component {
 				user: userData
 			}
 		});
-		this.props.history.push("/my_profile");
+		if (this.props.location.pathname === "/my_profile/edit") {
+			this.props.history.push("/my_profile");
+		}
 	}
 
 	logout() {

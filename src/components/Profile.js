@@ -45,7 +45,9 @@ class Profile extends React.Component {
 			<div>
 				<Header as="h1" align="center">
 					{`My Profile - ${this.props.user.username}`} <br />{" "}
-					<Link to="/my_profile/edit">Edit Profile</Link>
+					<Link to="/my_profile/edit">
+						<Button>Edit Profile</Button>
+					</Link>
 				</Header>
 				<br />
 				<Grid width="16">

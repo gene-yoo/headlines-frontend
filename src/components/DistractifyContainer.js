@@ -84,7 +84,12 @@ class DistractifyContainer extends React.Component {
 	}
 
 	handleShare(article, value) {
-		api.postNewArticle(article, value, this.props.user);
+		api.postNewArticle(
+			article,
+			value,
+			this.props.user,
+			this.props.updateUserMethod
+		);
 	}
 
 	handleToggleArticleShare(articleId) {

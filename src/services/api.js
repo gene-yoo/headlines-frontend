@@ -68,7 +68,7 @@ const api = {
 		}).then(res => res.json());
 	},
 
-	postNewArticle: (article, value, user) => {
+	postNewArticle: (article, value, user, cb) => {
 		let data = Object.assign({}, article, { user_id: user.id, public: value });
 		fetch(`${backendURL}/articles`, {
 			method: "POST",
@@ -76,7 +76,7 @@ const api = {
 			headers: backendHeaders
 		})
 			.then(res => res.json())
-			.then(res => console.log(res));
+			.then(res => cb(res));
 	},
 
 	updateArticle: id => {

@@ -60,6 +60,9 @@ class EditProfile extends React.Component {
 		return (
 			<div>
 				<Header as="h1">Edit My Profile</Header>
+				<Button onClick={() => this.props.handleEditProfile(this.state)}>
+					Save Profile
+				</Button>
 				<Header as="h3">Edit Username</Header>
 				<input
 					value={this.state.username}
@@ -69,10 +72,6 @@ class EditProfile extends React.Component {
 				<Header as="h3">Edit Favorite Sources</Header>
 
 				<List horizontal>{sourceOptions}</List>
-
-				<Button onClick={() => this.props.handleEditProfile(this.state)}>
-					Update Profile
-				</Button>
 			</div>
 		);
 	}
