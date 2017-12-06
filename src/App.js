@@ -24,8 +24,7 @@ class App extends Component {
 			"/feed",
 			"/network",
 			"/login",
-			"/signup",
-			"/welcome"
+			"/signup"
 		];
 		let token = localStorage.getItem("token");
 		if (token) {

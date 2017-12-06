@@ -13,6 +13,8 @@ import {
 	Transition
 } from "semantic-ui-react";
 
+import { withRouter } from "react-router-dom";
+
 const HomeContainer = props => {
 	return (
 		<div>
@@ -42,10 +44,19 @@ const HomeContainer = props => {
 								</Menu.Item>
 								<Menu.Item as="a">About</Menu.Item>
 								<Menu.Item position="right">
-									<Button as="a" inverted>
+									<Button
+										as="a"
+										inverted
+										onClick={() => props.history.push("/login")}
+									>
 										Log in
 									</Button>
-									<Button as="a" inverted style={{ marginLeft: "0.5em" }}>
+									<Button
+										as="a"
+										inverted
+										style={{ marginLeft: "0.5em" }}
+										onClick={() => props.history.push("/signup")}
+									>
 										Sign Up
 									</Button>
 								</Menu.Item>
@@ -85,4 +96,4 @@ const HomeContainer = props => {
 	);
 };
 
-export default HomeContainer;
+export default withRouter(HomeContainer);
