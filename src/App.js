@@ -6,8 +6,8 @@ import DistractifyContainer from "./components/DistractifyContainer";
 import HomeContainer from "./components/HomeContainer";
 
 class App extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			auth: {
@@ -15,6 +15,12 @@ class App extends Component {
 			},
 			isLoaded: false
 		};
+
+		if (localStorage.length === 0) {
+			props.history.push("/welcome");
+		} else {
+			props.history.push("/feed");
+		}
 	}
 
 	componentDidMount() {
@@ -96,31 +102,27 @@ class App extends Component {
 					user: {}
 				}
 			},
-			() => this.props.history.push("/login")
+			() => this.props.history.push("/welcome")
 		);
 	}
 
 	render() {
 		return (
-			<Switch>
-				<Route exact path="/welcome" render={() => <HomeContainer />} />
-
-				<Route
-					path="/"
-					render={() => {
-						return this.state.isLoaded ? (
-							<DistractifyContainer
-								loginMethod={this.login.bind(this)}
-								logoutMethod={this.logout.bind(this)}
-								user={this.state.auth.user}
-								updateUserMethod={this.updateUser.bind(this)}
-							/>
-						) : (
-							<h1>Loading...</h1>
-						);
-					}}
-				/>
-			</Switch>
+			<Route
+				path="/"
+				render={() => {
+					return this.state.isLoaded ? (
+						<DistractifyContainer
+							loginMethod={this.login.bind(this)}
+							logoutMethod={this.logout.bind(this)}
+							user={this.state.auth.user}
+							updateUserMethod={this.updateUser.bind(this)}
+						/>
+					) : (
+						<h1>Loading...</h1>
+					);
+				}}
+			/>
 		);
 	}
 }

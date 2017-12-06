@@ -73,7 +73,7 @@ class SignUp extends React.Component {
 							<input
 								onChange={this.handleSignUpTerms}
 								value={this.state.password}
-								type="text"
+								type="password"
 								name="password"
 								placeholder="Password"
 							/>
@@ -83,7 +83,7 @@ class SignUp extends React.Component {
 							<input
 								onChange={this.handleSignUpTerms}
 								value={this.state.passwordConfirmation}
-								type="text"
+								type="password"
 								name="passwordConfirmation"
 								placeholder="Password Confirmation"
 							/>

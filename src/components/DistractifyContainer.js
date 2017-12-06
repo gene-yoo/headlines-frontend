@@ -4,6 +4,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import Profile from "./Profile";
 import FeedContainer from "./FeedContainer";
+import HomeContainer from "./HomeContainer";
 import EditProfile from "./EditProfile";
 import { Route, Switch, withRouter } from "react-router-dom";
 import api from "../services/api";
@@ -41,13 +42,10 @@ class DistractifyContainer extends React.Component {
 		}
 	}
 
-	handleSearchTerm(ev) {
-		this.setState({ searchTerm: ev.target.value });
-	}
-
-	handleSearch() {
+	handleSearch(term) {
+		this.setState({ searchTerm: term });
 		api
-			.search(this.state.searchTerm)
+			.search(term)
 			.then(res => res.json())
 			.then(json => this.setResults(json));
 		// this.setState({ searchTerm: "" });
@@ -85,12 +83,16 @@ class DistractifyContainer extends React.Component {
 	}
 
 	handleShare(article, value) {
-		api.postNewArticle(
-			article,
-			value,
-			this.props.user,
-			this.props.updateUserMethod
-		);
+		if (this.props.user.username) {
+			api.postNewArticle(
+				article,
+				value,
+				this.props.user,
+				this.props.updateUserMethod
+			);
+		} else {
+			alert("You must be logged in to save or share an article!");
+		}
 	}
 
 	handleToggleArticleShare(articleId) {
@@ -139,7 +141,6 @@ class DistractifyContainer extends React.Component {
 	}
 
 	getNetworkFeed() {
-		console.log("getting network feed");
 		api.getNetworkFeed().then(res => this.setNetworkFeed(res));
 	}
 
@@ -148,15 +149,11 @@ class DistractifyContainer extends React.Component {
 	}
 
 	render() {
-		console.log("RESULTS", this.state.results);
-		console.log("FEED", this.state.feed);
-		console.log("NEWSFEED", this.state.networkFeed);
-		return (
+		let other = (
 			<div>
 				<NavBar
 					searchTerm={this.state.searchTerm}
 					user={this.props.user}
-					handleSearchTerm={this.handleSearchTerm.bind(this)}
 					handleSearch={this.handleSearch.bind(this)}
 					handleLogout={this.props.logoutMethod}
 				/>
@@ -253,6 +250,12 @@ class DistractifyContainer extends React.Component {
 					</Switch>
 				</Segment>
 			</div>
+		);
+
+		return this.props.location.pathname === "/welcome" ? (
+			<HomeContainer handleSearch={this.handleSearch.bind(this)} />
+		) : (
+			other
 		);
 	}
 }
