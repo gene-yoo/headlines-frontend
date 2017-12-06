@@ -58,6 +58,7 @@ const HomeContainer = props => {
 							<Header as="h1" style={{ color: "white" }}>
 								D I S T R A C T I F Y
 							</Header>
+							<br />
 
 							<Transition.Group animation="fade up" duration="500">
 								<Form>
