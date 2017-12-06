@@ -93,10 +93,10 @@ class DistractifyContainer extends React.Component {
 	}
 
 	handleToggleArticleShare(articleId) {
-		api.updateArticle(articleId);
+		api.updateArticle(articleId, this.props.updateUserMethod);
 	}
 	handleDeleteArticle(articleId, userId) {
-		api.deleteArticle(articleId);
+		api.deleteArticle(articleId, this.props.updateUserMethod);
 	}
 
 	getFeed() {

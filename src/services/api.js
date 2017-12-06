@@ -79,20 +79,22 @@ const api = {
 			.then(res => cb(res));
 	},
 
-	updateArticle: id => {
+	updateArticle: (id, cb) => {
 		fetch(`${backendURL}/articles/${id}`, {
 			method: "PUT",
 			headers: backendHeaders
 		})
 			.then(res => res.json())
-			.then(res => console.log(res));
+			.then(res => cb(res));
 	},
 
-	deleteArticle: id => {
+	deleteArticle: (id, cb) => {
 		fetch(`${backendURL}/articles/${id}`, {
 			method: "DELETE",
 			headers: backendHeaders
-		});
+		})
+			.then(res => res.json())
+			.then(res => cb(res));
 	}
 };
 
