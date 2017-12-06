@@ -104,18 +104,24 @@ class DistractifyContainer extends React.Component {
 	}
 
 	setFeed(json) {
+		let articles = json.articles
+			.filter(art => true && art.publishedAt)
+			.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+
 		let sources = {};
 
-		json.articles.map(article => article.source).forEach(src => {
+		articles.map(article => article.source).forEach(src => {
 			if (!Object.keys(sources).includes(src.id)) {
 				sources[src.id] = src;
 			}
 		});
 
-		sources = [...Object.values(sources)];
+		sources = [...Object.values(sources)].sort((a, b) =>
+			a.id.localeCompare(b.id)
+		);
 
 		this.setState({
-			feed: json.articles,
+			feed: articles,
 			allSources: sources,
 			currentSourceIds: sources.map(src => src.id)
 		});
@@ -123,7 +129,12 @@ class DistractifyContainer extends React.Component {
 
 	setResults(json) {
 		this.props.history.push("/results");
-		this.setState({ results: json.articles });
+
+		let articles = json.articles
+			.filter(art => true && art.publishedAt)
+			.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+
+		this.setState({ results: articles });
 	}
 
 	getNetworkFeed() {
@@ -160,6 +171,7 @@ class DistractifyContainer extends React.Component {
 										searchTerm={this.state.searchTerm}
 										checkLoggedIn={this.checkLoggedIn.bind(this)}
 										handleShare={this.handleShare.bind(this)}
+										getFeedMethod={() => {}}
 									/>
 								);
 							}}

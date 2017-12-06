@@ -6,12 +6,18 @@ import {
 	Button,
 	Icon,
 	Popup,
-	Divider
+	Divider,
+	Header
 } from "semantic-ui-react";
 
 const FeedItem = props => {
 	return (
 		<Item style={{ paddingBottom: "20px" }}>
+			{props.article.username ? (
+				<Item.Extra style={{ display: "block" }}>
+					{props.article.username} shared:
+				</Item.Extra>
+			) : null}
 			<Item.Image
 				src={props.article.urlToImage}
 				size="small"

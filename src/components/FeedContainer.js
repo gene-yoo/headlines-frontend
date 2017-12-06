@@ -23,10 +23,11 @@ class FeedContainer extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.checkLoggedIn();
-		if (this.props.user.username) {
-			this.props.getFeedMethod();
+		if (this.props.location.pathname === "/results" && !this.props.searchTerm) {
+			this.props.history.push("/feed");
 		}
+		this.props.checkLoggedIn();
+		this.props.getFeedMethod();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -58,6 +59,7 @@ class FeedContainer extends React.Component {
 
 	render() {
 		let itemsSources = [];
+
 		if (this.props.history.location.pathname === "/feed") {
 			itemsSources = this.props.allSources.map(source => {
 				return (
@@ -73,6 +75,7 @@ class FeedContainer extends React.Component {
 				);
 			});
 		}
+
 		const itemsArray = this.state.currentArticles.map(article => {
 			if (!article.urlToImage) {
 				article = Object.assign({}, article, { urlToImage: article.image_url });

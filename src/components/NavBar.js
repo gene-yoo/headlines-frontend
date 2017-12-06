@@ -30,13 +30,7 @@ const NavBar = props => {
 				</Link>
 			</Menu.Item>
 			<Menu.Item>
-				{!props.user.username ? (
-					<Link to="/login">
-						<Button align="middle" color="red">
-							Login
-						</Button>
-					</Link>
-				) : (
+				{!props.user.username ? null : (
 					<Dropdown text={`Welcome, ${props.user.username}`}>
 						<Dropdown.Menu>
 							<Dropdown.Item>

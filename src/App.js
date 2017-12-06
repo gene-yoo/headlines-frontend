@@ -29,6 +29,8 @@ class App extends Component {
 		let token = localStorage.getItem("token");
 		if (token) {
 			api.getCurrentUser(token).then(res => this.login(res));
+		} else if (this.props.history.location.pathname === "/welcome") {
+			this.setState({ isLoaded: true });
 		} else {
 			if (reroutes.includes(this.props.history.location.pathname)) {
 				this.props.history.push("/login");
