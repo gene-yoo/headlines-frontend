@@ -217,6 +217,7 @@ class DistractifyContainer extends React.Component {
 								/>
 							)}
 						/>
+
 						<Route
 							exact
 							path="/my_profile"

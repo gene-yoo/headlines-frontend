@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import { Route, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import api from "./services/api";
 import DistractifyContainer from "./components/DistractifyContainer";
+import HomeContainer from "./components/HomeContainer";
 
 class App extends Component {
 	constructor() {
@@ -22,7 +23,9 @@ class App extends Component {
 			"/my_profile/edit",
 			"/feed",
 			"/network",
-			"/login"
+			"/login",
+			"/signup",
+			"/welcome"
 		];
 		let token = localStorage.getItem("token");
 		if (token) {
@@ -90,21 +93,25 @@ class App extends Component {
 
 	render() {
 		return (
-			<Route
-				path="/"
-				render={() => {
-					return this.state.isLoaded ? (
-						<DistractifyContainer
-							loginMethod={this.login.bind(this)}
-							logoutMethod={this.logout.bind(this)}
-							user={this.state.auth.user}
-							updateUserMethod={this.updateUser.bind(this)}
-						/>
-					) : (
-						<h1>Loading...</h1>
-					);
-				}}
-			/>
+			<Switch>
+				<Route exact path="/welcome" render={() => <HomeContainer />} />
+
+				<Route
+					path="/"
+					render={() => {
+						return this.state.isLoaded ? (
+							<DistractifyContainer
+								loginMethod={this.login.bind(this)}
+								logoutMethod={this.logout.bind(this)}
+								user={this.state.auth.user}
+								updateUserMethod={this.updateUser.bind(this)}
+							/>
+						) : (
+							<h1>Loading...</h1>
+						);
+					}}
+				/>
+			</Switch>
 		);
 	}
 }
