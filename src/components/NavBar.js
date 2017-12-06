@@ -1,10 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Menu, Form, Input, Button, Dropdown, Icon } from "semantic-ui-react";
+import {
+	Menu,
+	Form,
+	Input,
+	Button,
+	Dropdown,
+	Icon,
+	Sticky
+} from "semantic-ui-react";
 
 const NavBar = props => {
 	return (
-		<Menu attached="top" color="red" inverted>
+		<Menu
+			attached="top"
+			style={{
+				backgroundColor: "rgb(121, 178, 174)"
+			}}
+			inverted
+		>
 			<Menu.Item>
 				<Link to="/feed">
 					<Icon name="home" size="big" />
@@ -53,7 +67,11 @@ const NavBar = props => {
 				>
 					<Form.Field>
 						<Input
-							placeholder="Search distractify..."
+							placeholder="Search for articles by keyword ..."
+							style={{ width: "350px" }}
+							icon="search"
+							iconPosition="right"
+							focus
 							value={props.searchTerm}
 							onChange={props.handleSearchTerm}
 						/>

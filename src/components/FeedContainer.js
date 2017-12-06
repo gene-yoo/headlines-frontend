@@ -6,7 +6,9 @@ import {
 	Header,
 	Grid,
 	Checkbox,
-	Form
+	Form,
+	Item,
+	Divider
 } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 
@@ -59,7 +61,7 @@ class FeedContainer extends React.Component {
 		if (this.props.history.location.pathname === "/feed") {
 			itemsSources = this.props.allSources.map(source => {
 				return (
-					<div key={source.id}>
+					<div key={source.id} style={{ paddingBottom: "5px" }}>
 						<Checkbox
 							toggle
 							checked={this.props.currentSourceIds.includes(source.id)}
@@ -90,7 +92,7 @@ class FeedContainer extends React.Component {
 				<Grid>
 					{this.props.history.location.pathname === "/feed" ? (
 						<Grid.Column width="4">
-							<Header as="h1">Sources</Header>
+							<Header as="h2">Filter Sources:</Header>
 							{itemsSources}
 						</Grid.Column>
 					) : (
@@ -98,14 +100,14 @@ class FeedContainer extends React.Component {
 					)}
 
 					<Grid.Column width="12">
-						<Header as="h1">
+						<Header as="h2">
 							{this.props.searchTerm
 								? `Showing search results for ${this.props.searchTerm}`
 								: this.props.history.location.pathname !== "/network"
-									? "Showing latest headlines"
-									: "Articles shared by the distractify network"}
+									? "Showing Top Headlines: "
+									: "Articles Shared By The Distractify Network"}
 						</Header>
-						<Feed>{itemsArray}</Feed>
+						<Item.Group>{itemsArray}</Item.Group>
 					</Grid.Column>
 				</Grid>
 			</Container>

@@ -16,6 +16,8 @@ import {
 import { withRouter } from "react-router-dom";
 
 const HomeContainer = props => {
+	let headlines = "HEADLINES";
+
 	return (
 		<div>
 			<Segment
@@ -66,8 +68,8 @@ const HomeContainer = props => {
 
 					<Grid.Row>
 						<Container>
-							<Header as="h1" style={{ color: "white" }}>
-								D I S T R A C T I F Y
+							<Header as="h1" style={{ color: "white", letterSpacing: "27px" }}>
+								{headlines}
 							</Header>
 							<br />
 
@@ -82,7 +84,14 @@ const HomeContainer = props => {
 											size="huge"
 											focus
 										/>
-										<Button type="submit" size="huge" color="blue">
+										<Button
+											type="submit"
+											size="huge"
+											style={{
+												backgroundColor: "rgb(121, 178, 174)",
+												color: "white"
+											}}
+										>
 											Submit
 										</Button>
 									</Form.Group>
