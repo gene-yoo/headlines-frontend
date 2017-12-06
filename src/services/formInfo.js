@@ -133,18 +133,6 @@ const formInfo = {
 		},
 		{
 			id: 12,
-			name: "Google News",
-			slug: "google-news",
-			description:
-				"Comprehensive, up-to-date news coverage, aggregated from sources all over the world by Google News.",
-			source_url: "https://news.google.com",
-			language: "en",
-			country: "us",
-			created_at: "2017-12-04T17:10:21.233Z",
-			updated_at: "2017-12-04T17:10:21.233Z"
-		},
-		{
-			id: 13,
 			name: "Hacker News",
 			slug: "hacker-news",
 			description:
@@ -156,7 +144,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.236Z"
 		},
 		{
-			id: 14,
+			id: 13,
 			name: "IGN",
 			slug: "ign",
 			description:
@@ -168,7 +156,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.238Z"
 		},
 		{
-			id: 15,
+			id: 14,
 			name: "Mashable",
 			slug: "mashable",
 			description:
@@ -180,7 +168,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.241Z"
 		},
 		{
-			id: 16,
+			id: 15,
 			name: "MTV News",
 			slug: "mtv-news",
 			description:
@@ -192,7 +180,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.244Z"
 		},
 		{
-			id: 17,
+			id: 16,
 			name: "National Geographic",
 			slug: "national-geographic",
 			description:
@@ -204,7 +192,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.248Z"
 		},
 		{
-			id: 18,
+			id: 17,
 			name: "New Scientist",
 			slug: "new-scientist",
 			description:
@@ -216,7 +204,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.251Z"
 		},
 		{
-			id: 19,
+			id: 18,
 			name: "New York Magazine",
 			slug: "new-york-magazine",
 			description:
@@ -228,7 +216,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.254Z"
 		},
 		{
-			id: 20,
+			id: 19,
 			name: "Next Big Future",
 			slug: "next-big-future",
 			description:
@@ -240,7 +228,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.258Z"
 		},
 		{
-			id: 21,
+			id: 20,
 			name: "NFL News",
 			slug: "nfl-news",
 			description:
@@ -252,7 +240,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.260Z"
 		},
 		{
-			id: 22,
+			id: 21,
 			name: "NHL News",
 			slug: "nhl-news",
 			description:
@@ -264,7 +252,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.263Z"
 		},
 		{
-			id: 23,
+			id: 22,
 			name: "Polygon",
 			slug: "polygon",
 			description:
@@ -276,7 +264,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.266Z"
 		},
 		{
-			id: 24,
+			id: 23,
 			name: "Recode",
 			slug: "recode",
 			description:
@@ -288,7 +276,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.268Z"
 		},
 		{
-			id: 25,
+			id: 24,
 			name: "Reddit /r/all",
 			slug: "reddit-r-all",
 			description:
@@ -300,7 +288,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.271Z"
 		},
 		{
-			id: 26,
+			id: 25,
 			name: "TechCrunch",
 			slug: "techcrunch",
 			description:
@@ -312,7 +300,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.274Z"
 		},
 		{
-			id: 27,
+			id: 26,
 			name: "TechRadar",
 			slug: "techradar",
 			description:
@@ -324,7 +312,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.277Z"
 		},
 		{
-			id: 28,
+			id: 27,
 			name: "The Next Web",
 			slug: "the-next-web",
 			description:
@@ -336,7 +324,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.280Z"
 		},
 		{
-			id: 29,
+			id: 28,
 			name: "The Verge",
 			slug: "the-verge",
 			description:
@@ -348,7 +336,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.284Z"
 		},
 		{
-			id: 30,
+			id: 29,
 			name: "Vice News",
 			slug: "vice-news",
 			description:
@@ -360,7 +348,7 @@ const formInfo = {
 			updated_at: "2017-12-04T17:10:21.287Z"
 		},
 		{
-			id: 31,
+			id: 30,
 			name: "Wired",
 			slug: "wired",
 			description:

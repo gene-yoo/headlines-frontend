@@ -33,7 +33,8 @@ class DistractifyContainer extends React.Component {
 
 	checkLoggedIn() {
 		if (
-			this.props.history.location.pathname === "/feed" &&
+			(this.props.history.location.pathname === "/feed" ||
+				this.props.history.location.pathname === "/network") &&
 			localStorage.length === 0
 		) {
 			this.props.history.push("/login");

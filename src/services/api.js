@@ -1,6 +1,7 @@
 import keys from "./keys.js";
 const newsURL = "https://newsapi.org/v2";
-const backendURL = "http://localhost:3000/api/v1";
+// const backendURL = "http://localhost:3000/api/v1";
+const backendURL = "https://headlines-api.herokuapp.com/api/v1";
 const API_KEY = keys.api;
 const newsHeaders = { "X-Api-Key": API_KEY };
 const backendHeaders = {

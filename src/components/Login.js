@@ -20,7 +20,7 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<Container align="center">
+			<Container align="center" style={{ width: "500px" }}>
 				<Header as="h1">Login</Header>
 				<Form
 					onSubmit={ev => {
@@ -50,7 +50,7 @@ class Login extends React.Component {
 						<Button type="submit">Submit</Button>
 					</Form.Field>
 				</Form>
-				<Header as="h6">
+				<Header as="h4">
 					New to Distractify? <Link to="/signup">Sign Up</Link>
 				</Header>
 			</Container>

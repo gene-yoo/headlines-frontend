@@ -52,23 +52,29 @@ class App extends Component {
 	}
 
 	login(res) {
-		localStorage.setItem("token", res.token);
-		this.setState(
-			{
-				auth: {
-					user: res
+		if (res.error) {
+			alert("New phone who dis?");
+			this.props.history.push("/login");
+		} else {
+			localStorage.setItem("token", res.token);
+
+			this.setState(
+				{
+					auth: {
+						user: res
+					},
+					isLoaded: true
 				},
-				isLoaded: true
-			},
-			() => {
-				if (
-					this.props.history.location.pathname === "/login" ||
-					this.props.history.location.pathname === "/signup"
-				) {
-					this.props.history.push("/feed");
+				() => {
+					if (
+						this.props.history.location.pathname === "/login" ||
+						this.props.history.location.pathname === "/signup"
+					) {
+						this.props.history.push("/feed");
+					}
 				}
-			}
-		);
+			);
+		}
 	}
 
 	updateUser(userData) {

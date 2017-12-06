@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Form, Header, Button } from "semantic-ui-react";
+import { Container, Form, Header, Button, Card } from "semantic-ui-react";
 import FormInfo from "../services/formInfo";
 
 class SignUp extends React.Component {
@@ -39,27 +39,15 @@ class SignUp extends React.Component {
 
 	render() {
 		let sourceOptions = FormInfo.sources.map(source => (
-			<div>
+			<Card align="center" style={{ width: "100px", height: "50px" }}>
 				<input
 					type="checkbox"
 					name="preferredSources"
 					value={source.id}
 					onChange={this.handleSignUpCheckboxes}
 				/>
-				<label htmlFor={source.slug}>{source.name}</label>
-			</div>
-		));
-
-		let categoryOptions = FormInfo.categories.map(category => (
-			<div>
-				<input
-					type="checkbox"
-					name="preferredCategories"
-					value={category.id}
-					onChange={this.handleSignUpCheckboxes}
-				/>
-				<label htmlFor={category.slug}>{category.name}</label>
-			</div>
+				<Card.Header>{source.name}</Card.Header>
+			</Card>
 		));
 
 		return (
@@ -71,43 +59,44 @@ class SignUp extends React.Component {
 						this.props.handleSignupSubmit(this.state);
 					}}
 				>
-					<Form.Field className="field">
-						<input
-							onChange={this.handleSignUpTerms}
-							value={this.state.username}
-							type="text"
-							name="username"
-							placeholder="Username"
-						/>
-					</Form.Field>
-					<Form.Field>
-						<input
-							onChange={this.handleSignUpTerms}
-							value={this.state.password}
-							type="text"
-							name="password"
-							placeholder="Password"
-						/>
-					</Form.Field>
+					<Container style={{ width: "500px" }}>
+						<Form.Field className="field">
+							<input
+								onChange={this.handleSignUpTerms}
+								value={this.state.username}
+								type="text"
+								name="username"
+								placeholder="Username"
+							/>
+						</Form.Field>
+						<Form.Field>
+							<input
+								onChange={this.handleSignUpTerms}
+								value={this.state.password}
+								type="text"
+								name="password"
+								placeholder="Password"
+							/>
+						</Form.Field>
 
-					<Form.Field>
-						<input
-							onChange={this.handleSignUpTerms}
-							value={this.state.passwordConfirmation}
-							type="text"
-							name="passwordConfirmation"
-							placeholder="Password Confirmation"
-						/>
-					</Form.Field>
-
-					<div>
+						<Form.Field>
+							<input
+								onChange={this.handleSignUpTerms}
+								value={this.state.passwordConfirmation}
+								type="text"
+								name="passwordConfirmation"
+								placeholder="Password Confirmation"
+							/>
+						</Form.Field>
+					</Container>
+					<br />
+					<Container style={{ width: "750px" }}>
 						<Header as="h3">Choose Sources: </Header>
-						{sourceOptions}
-
-						<Header as="h3">Choose Categories: </Header>
-						{categoryOptions}
-					</div>
-
+						<Card.Group style={{ paddingLeft: "42px" }}>
+							{sourceOptions}
+						</Card.Group>
+					</Container>
+					<br />
 					<Form.Field>
 						<Button type="submit">Submit</Button>
 					</Form.Field>

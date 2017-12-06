@@ -1,5 +1,13 @@
 import React from "react";
-import { Header, Button, List, Grid } from "semantic-ui-react";
+import {
+	Header,
+	Button,
+	List,
+	Grid,
+	Container,
+	Card,
+	Input
+} from "semantic-ui-react";
 import FormInfo from "../services/formInfo";
 
 class EditProfile extends React.Component {
@@ -44,35 +52,48 @@ class EditProfile extends React.Component {
 
 	render() {
 		let sourceOptions = FormInfo.sources.map(source => (
-			<List.Item key={source.id}>
-				<input
-					type="checkbox"
-					name="preferredSources"
-					value={source.id}
-					onChange={this.handleEditCheckboxes.bind(this)}
-					checked={this.state.preferredSources.includes(
-						parseInt(source.id, 10)
-					)}
-				/>
-				<label htmlFor={source.slug}>{source.name}</label>
-			</List.Item>
+			<Card
+				key={source.id}
+				align="center"
+				style={{ width: "115px", height: "70px" }}
+			>
+				<Card.Header>
+					<Input
+						type="checkbox"
+						name="preferredSources"
+						value={source.id}
+						onChange={this.handleEditCheckboxes.bind(this)}
+						checked={this.state.preferredSources.includes(
+							parseInt(source.id, 10)
+						)}
+					/>
+				</Card.Header>
+
+				<Card.Content style={{ paddingTop: "5px" }}>{source.name}</Card.Content>
+			</Card>
 		));
 		return (
-			<div>
+			<Container style={{ width: "775px" }}>
 				<Header as="h1">Edit My Profile</Header>
-				<Button onClick={() => this.props.handleEditProfile(this.state)}>
-					Save Profile
-				</Button>
-				<Header as="h3">Edit Username</Header>
-				<input
-					value={this.state.username}
-					type="text"
-					onChange={this.handleUsernameChange.bind(this)}
-				/>
-				<Header as="h3">Edit Favorite Sources</Header>
 
-				<List horizontal>{sourceOptions}</List>
-			</div>
+				<Container style={{ paddingBottom: "25px" }}>
+					<Button onClick={() => this.props.handleEditProfile(this.state)}>
+						Save Profile
+					</Button>
+
+					<Header as="h3">Edit Username</Header>
+					<Input
+						value={this.state.username}
+						type="text"
+						onChange={this.handleUsernameChange.bind(this)}
+					/>
+				</Container>
+
+				<Container style={{ paddingBottom: "25px" }}>
+					<Header as="h3">Edit Favorite Sources</Header>
+					<Card.Group>{sourceOptions}</Card.Group>
+				</Container>
+			</Container>
 		);
 	}
 }

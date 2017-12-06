@@ -27,7 +27,12 @@ class FeedContainer extends React.Component {
 			this.props.history.push("/feed");
 		}
 		this.props.checkLoggedIn();
-		this.props.getFeedMethod();
+
+		let token = localStorage.getItem("token");
+
+		if (!!token && token !== "undefined") {
+			this.props.getFeedMethod();
+		}
 	}
 
 	componentWillReceiveProps(nextProps) {
