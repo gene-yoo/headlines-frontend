@@ -132,7 +132,6 @@ class DistractifyContainer extends React.Component {
 
 	setResults(json) {
 		this.props.history.push("/results");
-
 		let articles = json.articles
 			.filter(art => true && art.publishedAt)
 			.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
