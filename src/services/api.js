@@ -25,7 +25,7 @@ const api = {
 	},
 
 	search: term => {
-		return fetch(`${newsURL}/everything?q=${term}&language=en`, {
+		return fetch(`${newsURL}/top-headlines?q=${term}&language=en`, {
 			headers: newsHeaders
 		});
 	},
